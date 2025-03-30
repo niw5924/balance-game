@@ -22,7 +22,7 @@ class _HomePageState extends State<HomePage> {
   ];
 
   final List<BottomNavigationBarItem> _bottomItems = [
-    BottomNavigationBarItem(icon: Icon(Icons.compare_arrows), label: '밸런스게임'),
+    BottomNavigationBarItem(icon: Icon(Icons.compare_arrows), label: '밸런스 게임'),
     BottomNavigationBarItem(icon: Icon(Icons.book), label: '도감'),
     BottomNavigationBarItem(icon: Icon(Icons.bar_chart), label: '기록'),
     BottomNavigationBarItem(icon: Icon(Icons.settings), label: '설정'),
