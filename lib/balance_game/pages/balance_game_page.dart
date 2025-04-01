@@ -59,12 +59,13 @@ class BalanceGamePage extends StatelessWidget {
                   return InkWell(
                     borderRadius: BorderRadius.circular(16),
                     onTap: () {
-                      final categoryTitle = category['title'];
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (_) =>
-                              QuestionListPage(category: categoryTitle),
+                          builder: (_) => QuestionListPage(
+                            category: category['title'],
+                            categoryColor: category['color'],
+                          ),
                         ),
                       );
                     },

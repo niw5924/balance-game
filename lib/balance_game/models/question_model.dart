@@ -2,7 +2,10 @@ class Option {
   final String text;
   final String type;
 
-  Option({required this.text, required this.type});
+  Option({
+    required this.text,
+    required this.type,
+  });
 
   factory Option.fromJson(Map<String, dynamic> json) {
     return Option(
@@ -17,11 +20,14 @@ class Question {
   final String question;
   final List<Option> options;
 
-  Question(
-      {required this.category, required this.question, required this.options});
+  Question({
+    required this.category,
+    required this.question,
+    required this.options,
+  });
 
   factory Question.fromJson(Map<String, dynamic> json) {
-    var options =
+    final options =
         (json['options'] as List).map((e) => Option.fromJson(e)).toList();
 
     return Question(
