@@ -1,3 +1,4 @@
+import 'package:balance_game/balance_game/pages/question_list_page.dart';
 import 'package:flutter/material.dart';
 import 'package:animated_gradient/animated_gradient.dart';
 
@@ -55,38 +56,51 @@ class BalanceGamePage extends StatelessWidget {
                 ),
                 itemBuilder: (context, index) {
                   final category = categories[index];
-                  return ClipRRect(
+                  return InkWell(
                     borderRadius: BorderRadius.circular(16),
-                    child: AnimatedGradient(
-                      colors: [
-                        category['color'].withOpacity(0.05),
-                        Colors.lightBlue,
-                        Colors.black,
-                      ],
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(category['emoji'],
-                              style: const TextStyle(fontSize: 32)),
-                          const SizedBox(height: 12),
-                          Text(
-                            category['title'],
-                            style: TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold,
-                              color: category['color'],
-                            ),
-                          ),
-                          const SizedBox(height: 6),
-                          Text(
-                            category['subtitle'],
-                            style: const TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.w500,
-                              color: Colors.white,
-                            ),
-                          ),
+                    onTap: () {
+                      final categoryTitle = category['title'];
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (_) =>
+                              QuestionListPage(category: categoryTitle),
+                        ),
+                      );
+                    },
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(16),
+                      child: AnimatedGradient(
+                        colors: [
+                          category['color'].withOpacity(0.05),
+                          Colors.lightBlue,
+                          Colors.black,
                         ],
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(category['emoji'],
+                                style: const TextStyle(fontSize: 32)),
+                            const SizedBox(height: 12),
+                            Text(
+                              category['title'],
+                              style: TextStyle(
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold,
+                                color: category['color'],
+                              ),
+                            ),
+                            const SizedBox(height: 6),
+                            Text(
+                              category['subtitle'],
+                              style: const TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.w500,
+                                color: Colors.white,
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   );
