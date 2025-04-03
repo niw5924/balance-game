@@ -31,7 +31,7 @@ class QuestionListPageCubit extends Cubit<QuestionListPageState> {
 
     final updated = Map<int, int>.from(state.selectedAnswers);
     if (currentSelected == optionIndex) {
-      updated.remove(currentIndex); // 해제
+      updated.remove(currentIndex);
     } else {
       updated[currentIndex] = optionIndex;
     }

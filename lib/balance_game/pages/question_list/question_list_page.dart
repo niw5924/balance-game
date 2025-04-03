@@ -1,3 +1,4 @@
+import 'package:another_flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animated_button/flutter_animated_button.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -78,6 +79,15 @@ class _QuestionListView extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
+                      '${state.currentIndex + 1} / ${state.questions.length}',
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.w500,
+                        color: category.mainColor,
+                      ),
+                    ),
+                    const SizedBox(height: 12),
+                    Text(
                       question.question,
                       style: const TextStyle(
                         fontSize: 24,
@@ -147,6 +157,21 @@ class _QuestionListView extends StatelessWidget {
                             ),
                           ),
                           onPressed: () {
+                            if (selected == null) {
+                              Flushbar(
+                                message: "선택지를 골라주세요!",
+                                duration: const Duration(seconds: 2),
+                                backgroundColor: Colors.black,
+                                margin: const EdgeInsets.all(16),
+                                borderRadius: BorderRadius.circular(8),
+                                icon: const Icon(
+                                  Icons.warning_amber_rounded,
+                                  color: Colors.red,
+                                ),
+                              ).show(context);
+                              return;
+                            }
+
                             context
                                 .read<QuestionListPageCubit>()
                                 .nextQuestion();
