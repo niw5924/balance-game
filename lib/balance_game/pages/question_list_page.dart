@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../themes/category_color_theme.dart';
 import '../models/question_model.dart';
 import '../services/api_service.dart';
 
@@ -17,9 +18,7 @@ class QuestionListPage extends StatefulWidget {
 }
 
 class _QuestionListPageState extends State<QuestionListPage> {
-  late final Color backgroundColor;
-  late final Color optionAColor;
-  late final Color optionBColor;
+  late final CategoryColorTheme colorTheme;
 
   late Future<List<Question>> _futureQuestions;
   int _currentQuestionIndex = 0;
@@ -27,42 +26,9 @@ class _QuestionListPageState extends State<QuestionListPage> {
   @override
   void initState() {
     super.initState();
-    _setColors();
+    colorTheme =
+        categoryColorThemes[widget.category] ?? defaultCategoryColorTheme;
     _futureQuestions = ApiService.fetchQuestionsByCategory(widget.category);
-  }
-
-  void _setColors() {
-    switch (widget.category) {
-      case '19금':
-        backgroundColor = const Color(0xFFFFE5E5);
-        optionAColor = Colors.lightBlueAccent;
-        optionBColor = Colors.greenAccent;
-        break;
-      case '혐오':
-        backgroundColor = const Color(0xFFE0F2F1);
-        optionAColor = Colors.pinkAccent;
-        optionBColor = Colors.deepPurple;
-        break;
-      case '극한':
-        backgroundColor = const Color(0xFFECEFF1);
-        optionAColor = Colors.orangeAccent;
-        optionBColor = Colors.cyanAccent;
-        break;
-      case '혼란':
-        backgroundColor = const Color(0xFFEDE7F6);
-        optionAColor = Colors.amber;
-        optionBColor = Colors.lightGreenAccent;
-        break;
-      case '망신':
-        backgroundColor = const Color(0xFFFFF8E1);
-        optionAColor = Colors.indigo;
-        optionBColor = Colors.tealAccent;
-        break;
-      default:
-        backgroundColor = Colors.grey.shade200;
-        optionAColor = Colors.grey;
-        optionBColor = Colors.blueGrey;
-    }
   }
 
   @override
@@ -72,7 +38,7 @@ class _QuestionListPageState extends State<QuestionListPage> {
         backgroundColor: widget.categoryColor,
         title: Text(widget.category),
       ),
-      backgroundColor: backgroundColor,
+      backgroundColor: colorTheme.backgroundColor,
       body: FutureBuilder<List<Question>>(
         future: _futureQuestions,
         builder: (context, snapshot) {
@@ -123,16 +89,18 @@ class _QuestionListPageState extends State<QuestionListPage> {
                   textAlign: TextAlign.center,
                 ),
                 const SizedBox(height: 40),
-                _buildOptionCard(question.options[0].text, optionAColor),
+                _buildOptionCard(
+                    question.options[0].text, colorTheme.optionAColor),
                 const SizedBox(height: 16),
                 _buildVS(),
                 const SizedBox(height: 16),
-                _buildOptionCard(question.options[1].text, optionBColor),
+                _buildOptionCard(
+                    question.options[1].text, colorTheme.optionBColor),
                 const SizedBox(height: 40),
                 ElevatedButton(
                   style: ElevatedButton.styleFrom(
                     backgroundColor: widget.categoryColor,
-                    foregroundColor: backgroundColor,
+                    foregroundColor: colorTheme.backgroundColor,
                     padding: const EdgeInsets.symmetric(
                         horizontal: 40, vertical: 16),
                     shape: RoundedRectangleBorder(
@@ -180,7 +148,7 @@ class _QuestionListPageState extends State<QuestionListPage> {
   Widget _buildVS() {
     return Container(
       padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
         color: Colors.black,
         shape: BoxShape.circle,
       ),
