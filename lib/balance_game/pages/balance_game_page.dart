@@ -1,32 +1,10 @@
-import 'package:balance_game/balance_game/pages/question_list_page.dart';
 import 'package:flutter/material.dart';
 import 'package:animated_gradient/animated_gradient.dart';
+import 'package:balance_game/balance_game/models/category_model.dart';
+import 'package:balance_game/balance_game/pages/question_list/question_list_page.dart';
 
 class BalanceGamePage extends StatelessWidget {
   const BalanceGamePage({super.key});
-
-  final List<Map<String, dynamic>> categories = const [
-    {
-      "emoji": "🔥",
-      "title": "19금",
-      "subtitle": "상상 그 이상일지도",
-      "color": Colors.redAccent
-    },
-    {"emoji": "🤢", "title": "혐오", "subtitle": "불쾌 주의", "color": Colors.teal},
-    {
-      "emoji": "🧊",
-      "title": "극한",
-      "subtitle": "멘탈 테스트",
-      "color": Colors.blueGrey
-    },
-    {
-      "emoji": "🤯",
-      "title": "혼란",
-      "subtitle": "이게 맞아?",
-      "color": Colors.deepPurple
-    },
-    {"emoji": "😳", "title": "망신", "subtitle": "쪽팔림 주의", "color": Colors.amber},
-  ];
 
   @override
   Widget build(BuildContext context) {
@@ -62,10 +40,7 @@ class BalanceGamePage extends StatelessWidget {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (_) => QuestionListPage(
-                            category: category['title'],
-                            categoryColor: category['color'],
-                          ),
+                          builder: (_) => QuestionListPage(category: category),
                         ),
                       );
                     },
@@ -73,27 +48,27 @@ class BalanceGamePage extends StatelessWidget {
                       borderRadius: BorderRadius.circular(16),
                       child: AnimatedGradient(
                         colors: [
-                          category['color'].withOpacity(0.05),
+                          category.mainColor.withValues(alpha: 0.05),
                           Colors.lightBlue,
                           Colors.black,
                         ],
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Text(category['emoji'],
+                            Text(category.emoji,
                                 style: const TextStyle(fontSize: 32)),
                             const SizedBox(height: 12),
                             Text(
-                              category['title'],
+                              category.title,
                               style: TextStyle(
                                 fontSize: 18,
                                 fontWeight: FontWeight.bold,
-                                color: category['color'],
+                                color: category.mainColor,
                               ),
                             ),
                             const SizedBox(height: 6),
                             Text(
-                              category['subtitle'],
+                              category.subtitle,
                               style: const TextStyle(
                                 fontSize: 16,
                                 fontWeight: FontWeight.w500,
