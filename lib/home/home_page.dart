@@ -22,8 +22,8 @@ class _HomePageState extends State<HomePage> {
   ];
 
   final List<BottomNavigationBarItem> _bottomItems = [
-    BottomNavigationBarItem(icon: Icon(Icons.compare_arrows), label: '밸런스 게임'),
-    BottomNavigationBarItem(icon: Icon(Icons.book), label: '도감'),
+    BottomNavigationBarItem(icon: Icon(Icons.question_mark), label: '밸런스 게임'),
+    BottomNavigationBarItem(icon: Icon(Icons.menu_book), label: '도감'),
     BottomNavigationBarItem(icon: Icon(Icons.bar_chart), label: '기록'),
     BottomNavigationBarItem(icon: Icon(Icons.settings), label: '설정'),
   ];
@@ -35,6 +35,9 @@ class _HomePageState extends State<HomePage> {
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _currentIndex,
         items: _bottomItems,
+        backgroundColor: const Color(0xFF1A1F24),
+        selectedItemColor: Colors.white,
+        unselectedItemColor: Colors.grey,
         type: BottomNavigationBarType.fixed,
         onTap: (index) => setState(() => _currentIndex = index),
       ),

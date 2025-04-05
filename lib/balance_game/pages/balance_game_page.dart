@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:animated_gradient/animated_gradient.dart';
 import 'package:balance_game/balance_game/models/category_model.dart';
 import 'package:balance_game/balance_game/pages/question_list/question_list_page.dart';
 
@@ -10,7 +9,13 @@ class BalanceGamePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xFF101418),
-      appBar: AppBar(title: const Text('밸런스게임')),
+      appBar: AppBar(
+        backgroundColor: const Color(0xFF1A1F24),
+        title: const Text(
+          '밸런스게임',
+          style: TextStyle(color: Colors.white),
+        ),
+      ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 24),
         child: Column(
@@ -44,39 +49,43 @@ class BalanceGamePage extends StatelessWidget {
                         ),
                       );
                     },
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(16),
-                      child: AnimatedGradient(
-                        colors: [
-                          category.mainColor.withValues(alpha: 0.05),
-                          Colors.lightBlue,
-                          Colors.black,
-                        ],
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(category.emoji,
-                                style: const TextStyle(fontSize: 32)),
-                            const SizedBox(height: 12),
-                            Text(
-                              category.title,
-                              style: TextStyle(
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold,
-                                color: category.mainColor,
-                              ),
-                            ),
-                            const SizedBox(height: 6),
-                            Text(
-                              category.subtitle,
-                              style: const TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.w500,
-                                color: Colors.white,
-                              ),
-                            ),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(16),
+                        gradient: LinearGradient(
+                          begin: Alignment.topCenter,
+                          end: Alignment.bottomCenter,
+                          colors: [
+                            category.mainColor.withValues(alpha: 0.1),
+                            category.mainColor.withValues(alpha: 0.2),
+                            category.mainColor.withValues(alpha: 0.5),
                           ],
                         ),
+                      ),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(category.emoji,
+                              style: const TextStyle(fontSize: 32)),
+                          const SizedBox(height: 12),
+                          Text(
+                            category.title,
+                            style: TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                              color: category.mainColor,
+                            ),
+                          ),
+                          const SizedBox(height: 6),
+                          Text(
+                            category.subtitle,
+                            style: const TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.w500,
+                              color: Colors.white,
+                            ),
+                          ),
+                        ],
                       ),
                     ),
                   );
