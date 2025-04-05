@@ -1,10 +1,10 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:balance_game/balance_game/services/api_service.dart';
 import 'package:balance_game/balance_game/models/category_model.dart';
-import 'question_list_page_state.dart';
+import 'balance_game_play_page_state.dart';
 
-class QuestionListPageCubit extends Cubit<QuestionListPageState> {
-  QuestionListPageCubit() : super(const QuestionListPageState());
+class BalanceGamePlayPageCubit extends Cubit<BalanceGamePlayPageState> {
+  BalanceGamePlayPageCubit() : super(const BalanceGamePlayPageState());
 
   Future<void> loadQuestions(Category category) async {
     emit(state.copyWith(isLoading: true, error: null, category: category));

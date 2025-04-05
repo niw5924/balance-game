@@ -4,7 +4,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
-part of 'question_list_page_state.dart';
+part of 'balance_game_play_page_state.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -14,7 +14,7 @@ part of 'question_list_page_state.dart';
 T _$identity<T>(T value) => value;
 
 /// @nodoc
-mixin _$QuestionListPageState {
+mixin _$BalanceGamePlayPageState {
   bool get isLoading;
   String? get error;
   Category? get category;
@@ -22,19 +22,19 @@ mixin _$QuestionListPageState {
   int get currentIndex;
   Map<int, int> get selectedAnswers;
 
-  /// Create a copy of QuestionListPageState
+  /// Create a copy of BalanceGamePlayPageState
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
   @pragma('vm:prefer-inline')
-  $QuestionListPageStateCopyWith<QuestionListPageState> get copyWith =>
-      _$QuestionListPageStateCopyWithImpl<QuestionListPageState>(
-          this as QuestionListPageState, _$identity);
+  $BalanceGamePlayPageStateCopyWith<BalanceGamePlayPageState> get copyWith =>
+      _$BalanceGamePlayPageStateCopyWithImpl<BalanceGamePlayPageState>(
+          this as BalanceGamePlayPageState, _$identity);
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is QuestionListPageState &&
+            other is BalanceGamePlayPageState &&
             (identical(other.isLoading, isLoading) ||
                 other.isLoading == isLoading) &&
             (identical(other.error, error) || other.error == error) &&
@@ -59,15 +59,15 @@ mixin _$QuestionListPageState {
 
   @override
   String toString() {
-    return 'QuestionListPageState(isLoading: $isLoading, error: $error, category: $category, questions: $questions, currentIndex: $currentIndex, selectedAnswers: $selectedAnswers)';
+    return 'BalanceGamePlayPageState(isLoading: $isLoading, error: $error, category: $category, questions: $questions, currentIndex: $currentIndex, selectedAnswers: $selectedAnswers)';
   }
 }
 
 /// @nodoc
-abstract mixin class $QuestionListPageStateCopyWith<$Res> {
-  factory $QuestionListPageStateCopyWith(QuestionListPageState value,
-          $Res Function(QuestionListPageState) _then) =
-      _$QuestionListPageStateCopyWithImpl;
+abstract mixin class $BalanceGamePlayPageStateCopyWith<$Res> {
+  factory $BalanceGamePlayPageStateCopyWith(BalanceGamePlayPageState value,
+          $Res Function(BalanceGamePlayPageState) _then) =
+      _$BalanceGamePlayPageStateCopyWithImpl;
   @useResult
   $Res call(
       {bool isLoading,
@@ -79,14 +79,14 @@ abstract mixin class $QuestionListPageStateCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$QuestionListPageStateCopyWithImpl<$Res>
-    implements $QuestionListPageStateCopyWith<$Res> {
-  _$QuestionListPageStateCopyWithImpl(this._self, this._then);
+class _$BalanceGamePlayPageStateCopyWithImpl<$Res>
+    implements $BalanceGamePlayPageStateCopyWith<$Res> {
+  _$BalanceGamePlayPageStateCopyWithImpl(this._self, this._then);
 
-  final QuestionListPageState _self;
-  final $Res Function(QuestionListPageState) _then;
+  final BalanceGamePlayPageState _self;
+  final $Res Function(BalanceGamePlayPageState) _then;
 
-  /// Create a copy of QuestionListPageState
+  /// Create a copy of BalanceGamePlayPageState
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
@@ -129,8 +129,8 @@ class _$QuestionListPageStateCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _QuestionListPageState implements QuestionListPageState {
-  const _QuestionListPageState(
+class _BalanceGamePlayPageState implements BalanceGamePlayPageState {
+  const _BalanceGamePlayPageState(
       {this.isLoading = true,
       this.error,
       this.category,
@@ -168,20 +168,20 @@ class _QuestionListPageState implements QuestionListPageState {
     return EqualUnmodifiableMapView(_selectedAnswers);
   }
 
-  /// Create a copy of QuestionListPageState
+  /// Create a copy of BalanceGamePlayPageState
   /// with the given fields replaced by the non-null parameter values.
   @override
   @JsonKey(includeFromJson: false, includeToJson: false)
   @pragma('vm:prefer-inline')
-  _$QuestionListPageStateCopyWith<_QuestionListPageState> get copyWith =>
-      __$QuestionListPageStateCopyWithImpl<_QuestionListPageState>(
+  _$BalanceGamePlayPageStateCopyWith<_BalanceGamePlayPageState> get copyWith =>
+      __$BalanceGamePlayPageStateCopyWithImpl<_BalanceGamePlayPageState>(
           this, _$identity);
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _QuestionListPageState &&
+            other is _BalanceGamePlayPageState &&
             (identical(other.isLoading, isLoading) ||
                 other.isLoading == isLoading) &&
             (identical(other.error, error) || other.error == error) &&
@@ -207,16 +207,16 @@ class _QuestionListPageState implements QuestionListPageState {
 
   @override
   String toString() {
-    return 'QuestionListPageState(isLoading: $isLoading, error: $error, category: $category, questions: $questions, currentIndex: $currentIndex, selectedAnswers: $selectedAnswers)';
+    return 'BalanceGamePlayPageState(isLoading: $isLoading, error: $error, category: $category, questions: $questions, currentIndex: $currentIndex, selectedAnswers: $selectedAnswers)';
   }
 }
 
 /// @nodoc
-abstract mixin class _$QuestionListPageStateCopyWith<$Res>
-    implements $QuestionListPageStateCopyWith<$Res> {
-  factory _$QuestionListPageStateCopyWith(_QuestionListPageState value,
-          $Res Function(_QuestionListPageState) _then) =
-      __$QuestionListPageStateCopyWithImpl;
+abstract mixin class _$BalanceGamePlayPageStateCopyWith<$Res>
+    implements $BalanceGamePlayPageStateCopyWith<$Res> {
+  factory _$BalanceGamePlayPageStateCopyWith(_BalanceGamePlayPageState value,
+          $Res Function(_BalanceGamePlayPageState) _then) =
+      __$BalanceGamePlayPageStateCopyWithImpl;
   @override
   @useResult
   $Res call(
@@ -229,14 +229,14 @@ abstract mixin class _$QuestionListPageStateCopyWith<$Res>
 }
 
 /// @nodoc
-class __$QuestionListPageStateCopyWithImpl<$Res>
-    implements _$QuestionListPageStateCopyWith<$Res> {
-  __$QuestionListPageStateCopyWithImpl(this._self, this._then);
+class __$BalanceGamePlayPageStateCopyWithImpl<$Res>
+    implements _$BalanceGamePlayPageStateCopyWith<$Res> {
+  __$BalanceGamePlayPageStateCopyWithImpl(this._self, this._then);
 
-  final _QuestionListPageState _self;
-  final $Res Function(_QuestionListPageState) _then;
+  final _BalanceGamePlayPageState _self;
+  final $Res Function(_BalanceGamePlayPageState) _then;
 
-  /// Create a copy of QuestionListPageState
+  /// Create a copy of BalanceGamePlayPageState
   /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
@@ -248,7 +248,7 @@ class __$QuestionListPageStateCopyWithImpl<$Res>
     Object? currentIndex = null,
     Object? selectedAnswers = null,
   }) {
-    return _then(_QuestionListPageState(
+    return _then(_BalanceGamePlayPageState(
       isLoading: null == isLoading
           ? _self.isLoading
           : isLoading // ignore: cast_nullable_to_non_nullable

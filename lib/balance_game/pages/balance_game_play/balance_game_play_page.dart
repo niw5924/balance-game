@@ -4,27 +4,27 @@ import 'package:flutter_animated_button/flutter_animated_button.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/services.dart';
 import 'package:balance_game/balance_game/models/category_model.dart';
-import 'question_list_page_cubit.dart';
-import 'question_list_page_state.dart';
+import 'balance_game_play_page_cubit.dart';
+import 'balance_game_play_page_state.dart';
 
-class QuestionListPage extends StatelessWidget {
+class BalanceGamePlayPage extends StatelessWidget {
   final Category category;
 
-  const QuestionListPage({super.key, required this.category});
+  const BalanceGamePlayPage({super.key, required this.category});
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (_) => QuestionListPageCubit()..loadQuestions(category),
-      child: _QuestionListView(),
+      create: (_) => BalanceGamePlayPageCubit()..loadQuestions(category),
+      child: _BalanceGamePlayView(),
     );
   }
 }
 
-class _QuestionListView extends StatelessWidget {
+class _BalanceGamePlayView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<QuestionListPageCubit, QuestionListPageState>(
+    return BlocBuilder<BalanceGamePlayPageCubit, BalanceGamePlayPageState>(
       builder: (context, state) {
         final category = state.category!;
 
@@ -105,7 +105,9 @@ class _QuestionListView extends StatelessWidget {
                       selectedBackgroundColor: category.mainColor,
                       onTap: () {
                         HapticFeedback.mediumImpact();
-                        context.read<QuestionListPageCubit>().selectAnswer(0);
+                        context
+                            .read<BalanceGamePlayPageCubit>()
+                            .selectAnswer(0);
                       },
                     ),
                     const SizedBox(height: 8),
@@ -119,7 +121,9 @@ class _QuestionListView extends StatelessWidget {
                       selectedBackgroundColor: category.mainColor,
                       onTap: () {
                         HapticFeedback.mediumImpact();
-                        context.read<QuestionListPageCubit>().selectAnswer(1);
+                        context
+                            .read<BalanceGamePlayPageCubit>()
+                            .selectAnswer(1);
                       },
                     ),
                     const SizedBox(height: 40),
@@ -139,7 +143,7 @@ class _QuestionListView extends StatelessWidget {
                             ),
                             onPressed: () {
                               context
-                                  .read<QuestionListPageCubit>()
+                                  .read<BalanceGamePlayPageCubit>()
                                   .previousQuestion();
                             },
                             child: const Text('이전',
@@ -173,7 +177,7 @@ class _QuestionListView extends StatelessWidget {
                             }
 
                             context
-                                .read<QuestionListPageCubit>()
+                                .read<BalanceGamePlayPageCubit>()
                                 .nextQuestion();
                           },
                           child:

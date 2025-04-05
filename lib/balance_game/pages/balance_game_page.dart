@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:balance_game/balance_game/models/category_model.dart';
-import 'package:balance_game/balance_game/pages/question_list/question_list_page.dart';
+
+import 'balance_game_play/balance_game_play_page.dart';
 
 class BalanceGamePage extends StatelessWidget {
   const BalanceGamePage({super.key});
@@ -45,7 +46,8 @@ class BalanceGamePage extends StatelessWidget {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (_) => QuestionListPage(category: category),
+                          builder: (_) =>
+                              BalanceGamePlayPage(category: category),
                         ),
                       );
                     },
