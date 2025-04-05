@@ -21,6 +21,7 @@ mixin _$BalanceGamePlayPageState {
   List<Question> get questions;
   int get currentIndex;
   Map<int, int> get selectedAnswers;
+  BalanceGamePlayStatus get status;
 
   /// Create a copy of BalanceGamePlayPageState
   /// with the given fields replaced by the non-null parameter values.
@@ -44,7 +45,8 @@ mixin _$BalanceGamePlayPageState {
             (identical(other.currentIndex, currentIndex) ||
                 other.currentIndex == currentIndex) &&
             const DeepCollectionEquality()
-                .equals(other.selectedAnswers, selectedAnswers));
+                .equals(other.selectedAnswers, selectedAnswers) &&
+            (identical(other.status, status) || other.status == status));
   }
 
   @override
@@ -55,11 +57,12 @@ mixin _$BalanceGamePlayPageState {
       category,
       const DeepCollectionEquality().hash(questions),
       currentIndex,
-      const DeepCollectionEquality().hash(selectedAnswers));
+      const DeepCollectionEquality().hash(selectedAnswers),
+      status);
 
   @override
   String toString() {
-    return 'BalanceGamePlayPageState(isLoading: $isLoading, error: $error, category: $category, questions: $questions, currentIndex: $currentIndex, selectedAnswers: $selectedAnswers)';
+    return 'BalanceGamePlayPageState(isLoading: $isLoading, error: $error, category: $category, questions: $questions, currentIndex: $currentIndex, selectedAnswers: $selectedAnswers, status: $status)';
   }
 }
 
@@ -75,7 +78,8 @@ abstract mixin class $BalanceGamePlayPageStateCopyWith<$Res> {
       Category? category,
       List<Question> questions,
       int currentIndex,
-      Map<int, int> selectedAnswers});
+      Map<int, int> selectedAnswers,
+      BalanceGamePlayStatus status});
 }
 
 /// @nodoc
@@ -97,6 +101,7 @@ class _$BalanceGamePlayPageStateCopyWithImpl<$Res>
     Object? questions = null,
     Object? currentIndex = null,
     Object? selectedAnswers = null,
+    Object? status = null,
   }) {
     return _then(_self.copyWith(
       isLoading: null == isLoading
@@ -123,6 +128,10 @@ class _$BalanceGamePlayPageStateCopyWithImpl<$Res>
           ? _self.selectedAnswers
           : selectedAnswers // ignore: cast_nullable_to_non_nullable
               as Map<int, int>,
+      status: null == status
+          ? _self.status
+          : status // ignore: cast_nullable_to_non_nullable
+              as BalanceGamePlayStatus,
     ));
   }
 }
@@ -136,7 +145,8 @@ class _BalanceGamePlayPageState implements BalanceGamePlayPageState {
       this.category,
       final List<Question> questions = const [],
       this.currentIndex = 0,
-      final Map<int, int> selectedAnswers = const {}})
+      final Map<int, int> selectedAnswers = const {},
+      this.status = BalanceGamePlayStatus.inProgress})
       : _questions = questions,
         _selectedAnswers = selectedAnswers;
 
@@ -168,6 +178,10 @@ class _BalanceGamePlayPageState implements BalanceGamePlayPageState {
     return EqualUnmodifiableMapView(_selectedAnswers);
   }
 
+  @override
+  @JsonKey()
+  final BalanceGamePlayStatus status;
+
   /// Create a copy of BalanceGamePlayPageState
   /// with the given fields replaced by the non-null parameter values.
   @override
@@ -192,7 +206,8 @@ class _BalanceGamePlayPageState implements BalanceGamePlayPageState {
             (identical(other.currentIndex, currentIndex) ||
                 other.currentIndex == currentIndex) &&
             const DeepCollectionEquality()
-                .equals(other._selectedAnswers, _selectedAnswers));
+                .equals(other._selectedAnswers, _selectedAnswers) &&
+            (identical(other.status, status) || other.status == status));
   }
 
   @override
@@ -203,11 +218,12 @@ class _BalanceGamePlayPageState implements BalanceGamePlayPageState {
       category,
       const DeepCollectionEquality().hash(_questions),
       currentIndex,
-      const DeepCollectionEquality().hash(_selectedAnswers));
+      const DeepCollectionEquality().hash(_selectedAnswers),
+      status);
 
   @override
   String toString() {
-    return 'BalanceGamePlayPageState(isLoading: $isLoading, error: $error, category: $category, questions: $questions, currentIndex: $currentIndex, selectedAnswers: $selectedAnswers)';
+    return 'BalanceGamePlayPageState(isLoading: $isLoading, error: $error, category: $category, questions: $questions, currentIndex: $currentIndex, selectedAnswers: $selectedAnswers, status: $status)';
   }
 }
 
@@ -225,7 +241,8 @@ abstract mixin class _$BalanceGamePlayPageStateCopyWith<$Res>
       Category? category,
       List<Question> questions,
       int currentIndex,
-      Map<int, int> selectedAnswers});
+      Map<int, int> selectedAnswers,
+      BalanceGamePlayStatus status});
 }
 
 /// @nodoc
@@ -247,6 +264,7 @@ class __$BalanceGamePlayPageStateCopyWithImpl<$Res>
     Object? questions = null,
     Object? currentIndex = null,
     Object? selectedAnswers = null,
+    Object? status = null,
   }) {
     return _then(_BalanceGamePlayPageState(
       isLoading: null == isLoading
@@ -273,6 +291,10 @@ class __$BalanceGamePlayPageStateCopyWithImpl<$Res>
           ? _self._selectedAnswers
           : selectedAnswers // ignore: cast_nullable_to_non_nullable
               as Map<int, int>,
+      status: null == status
+          ? _self.status
+          : status // ignore: cast_nullable_to_non_nullable
+              as BalanceGamePlayStatus,
     ));
   }
 }

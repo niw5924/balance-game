@@ -40,7 +40,10 @@ class BalanceGamePlayPageCubit extends Cubit<BalanceGamePlayPageState> {
   }
 
   void nextQuestion() {
-    if (state.currentIndex < state.questions.length) {
+    final isLast = state.currentIndex == state.questions.length - 1;
+    if (isLast) {
+      emit(state.copyWith(status: BalanceGamePlayStatus.completed));
+    } else {
       emit(state.copyWith(currentIndex: state.currentIndex + 1));
     }
   }

@@ -60,11 +60,23 @@ class _BalanceGamePlayView extends StatelessWidget {
                 );
               }
 
-              if (state.currentIndex >= state.questions.length) {
+              if (state.status == BalanceGamePlayStatus.completed) {
                 return Center(
-                  child: Text(
-                    '더 이상 문제가 없습니다.',
-                    style: TextStyle(color: category.mainColor),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(Icons.emoji_events,
+                          size: 80, color: category.mainColor),
+                      const SizedBox(height: 16),
+                      Text(
+                        '밸런스 게임 완료!',
+                        style: TextStyle(
+                          fontSize: 24,
+                          fontWeight: FontWeight.bold,
+                          color: category.mainColor,
+                        ),
+                      ),
+                    ],
                   ),
                 );
               }
