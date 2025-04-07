@@ -6,6 +6,7 @@ import 'package:flutter/services.dart';
 import 'package:balance_game/balance_game/models/category_model.dart';
 import 'balance_game_play_page_cubit.dart';
 import 'balance_game_play_page_state.dart';
+import 'type_chart_dialog.dart';
 
 class BalanceGamePlayPage extends StatelessWidget {
   final Category category;
@@ -61,6 +62,16 @@ class _BalanceGamePlayView extends StatelessWidget {
               }
 
               if (state.status == BalanceGamePlayStatus.completed) {
+                final typeCountMap = <String, int>{};
+
+                for (int i = 0; i < state.questions.length; i++) {
+                  final selectedIndex = state.selectedAnswers[i]!;
+                  final selectedOption =
+                      state.questions[i].options[selectedIndex];
+                  final type = selectedOption.type;
+                  typeCountMap[type] = (typeCountMap[type] ?? 0) + 1;
+                }
+
                 return SingleChildScrollView(
                   child: Padding(
                     padding: const EdgeInsets.symmetric(
@@ -78,6 +89,26 @@ class _BalanceGamePlayView extends StatelessWidget {
                             fontWeight: FontWeight.bold,
                             color: category.mainColor,
                           ),
+                        ),
+                        const SizedBox(height: 12),
+                        ElevatedButton(
+                          onPressed: () {
+                            showDialog(
+                              context: context,
+                              builder: (_) =>
+                                  TypeChartDialog(typeCountMap: typeCountMap),
+                            );
+                          },
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: category.mainColor,
+                            foregroundColor: Colors.white,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(20),
+                            ),
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 24, vertical: 12),
+                          ),
+                          child: const Text('통계 보기'),
                         ),
                         const SizedBox(height: 24),
                         ListView.separated(
