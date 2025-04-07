@@ -61,28 +61,76 @@ class _BalanceGamePlayView extends StatelessWidget {
               }
 
               if (state.status == BalanceGamePlayStatus.completed) {
-                return Center(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Icon(Icons.emoji_events,
-                          size: 80, color: category.mainColor),
-                      const SizedBox(height: 16),
-                      Text(
-                        '밸런스 게임 완료!',
-                        style: TextStyle(
-                          fontSize: 24,
-                          fontWeight: FontWeight.bold,
-                          color: category.mainColor,
+                return SingleChildScrollView(
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 20, vertical: 24),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(Icons.emoji_events,
+                            size: 80, color: category.mainColor),
+                        const SizedBox(height: 16),
+                        Text(
+                          '밸런스 게임 완료!',
+                          style: TextStyle(
+                            fontSize: 24,
+                            fontWeight: FontWeight.bold,
+                            color: category.mainColor,
+                          ),
                         ),
-                      ),
-                    ],
+                        const SizedBox(height: 24),
+                        ListView.separated(
+                          shrinkWrap: true,
+                          physics: const NeverScrollableScrollPhysics(),
+                          itemCount: state.questions.length,
+                          separatorBuilder: (_, __) =>
+                              const SizedBox(height: 12),
+                          itemBuilder: (context, index) {
+                            final resultQuestion = state.questions[index];
+                            final resultSelected = state.selectedAnswers[index];
+                            final selectedOptionText =
+                                resultQuestion.options[resultSelected!].text;
+
+                            return Container(
+                              padding: const EdgeInsets.all(16),
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(12),
+                                border: Border.all(color: category.mainColor),
+                              ),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    'Q${index + 1}. ${resultQuestion.question}',
+                                    style: const TextStyle(
+                                      fontSize: 16,
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                                  ),
+                                  const SizedBox(height: 8),
+                                  Text(
+                                    selectedOptionText,
+                                    style: TextStyle(
+                                      fontSize: 15,
+                                      color: category.mainColor,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            );
+                          },
+                        ),
+                      ],
+                    ),
                   ),
                 );
               }
 
-              final question = state.questions[state.currentIndex];
-              final selected = state.selectedAnswers[state.currentIndex];
+              final currentQuestion = state.questions[state.currentIndex];
+              final currentSelected = state.selectedAnswers[state.currentIndex];
 
               return Padding(
                 padding:
@@ -100,7 +148,7 @@ class _BalanceGamePlayView extends StatelessWidget {
                     ),
                     const SizedBox(height: 12),
                     Text(
-                      question.question,
+                      currentQuestion.question,
                       style: const TextStyle(
                         fontSize: 24,
                         color: Colors.black,
@@ -111,8 +159,8 @@ class _BalanceGamePlayView extends StatelessWidget {
                     const SizedBox(height: 40),
                     _buildOptionButton(
                       index: 0,
-                      text: question.options[0].text,
-                      isSelected: selected == 0,
+                      text: currentQuestion.options[0].text,
+                      isSelected: currentSelected == 0,
                       backgroundColor: category.optionAColor,
                       selectedBackgroundColor: category.mainColor,
                       onTap: () {
@@ -127,8 +175,8 @@ class _BalanceGamePlayView extends StatelessWidget {
                     const SizedBox(height: 8),
                     _buildOptionButton(
                       index: 1,
-                      text: question.options[1].text,
-                      isSelected: selected == 1,
+                      text: currentQuestion.options[1].text,
+                      isSelected: currentSelected == 1,
                       backgroundColor: category.optionBColor,
                       selectedBackgroundColor: category.mainColor,
                       onTap: () {
@@ -173,7 +221,7 @@ class _BalanceGamePlayView extends StatelessWidget {
                             ),
                           ),
                           onPressed: () {
-                            if (selected == null) {
+                            if (currentSelected == null) {
                               Flushbar(
                                 message: "선택지를 골라주세요!",
                                 duration: const Duration(seconds: 2),
