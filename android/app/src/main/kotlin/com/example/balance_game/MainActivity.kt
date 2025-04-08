@@ -1,5 +1,5 @@
-package com.example.balance_game
+package com.niw.balance_game
 
-import io.flutter.embedding.android.FlutterActivity
+import io.flutter.embedding.android.FlutterFragmentActivity
 
-class MainActivity: FlutterActivity()
+class MainActivity: FlutterFragmentActivity()
