@@ -24,7 +24,7 @@ class AuthProvider extends ChangeNotifier {
     userName = null;
     userProfileImage = null;
     currentLoginMethod = null;
-    debugPrint('로그아웃됨 (유저 정보 초기화)');
+    debugPrint('로그아웃 완료');
     debugPrint('이름: $userName');
     debugPrint('프로필: $userProfileImage');
     notifyListeners();

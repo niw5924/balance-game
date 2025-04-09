@@ -10,56 +10,88 @@ class SettingsPage extends StatelessWidget {
     final auth = context.watch<AuthProvider>();
 
     return Scaffold(
-      appBar: AppBar(title: const Text('설정')),
+      backgroundColor: const Color(0xFF101418),
+      appBar: AppBar(
+        backgroundColor: const Color(0xFF1A1F24),
+        title: const Text(
+          '설정',
+          style: TextStyle(color: Colors.white),
+        ),
+      ),
       body: Padding(
-        padding: const EdgeInsets.all(24.0),
-        child: auth.isLoggedIn
-            ? Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 24),
+        child: Column(
+          children: [
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 24),
+              decoration: BoxDecoration(
+                color: const Color(0xFF1A1F24),
+                borderRadius: BorderRadius.circular(16),
+              ),
+              child: Column(
                 children: [
-                  const SizedBox(height: 40),
-                  CircleAvatar(
-                    radius: 40,
-                    backgroundImage: NetworkImage(auth.userProfileImage!),
+                  Row(
+                    children: [
+                      CircleAvatar(
+                        radius: 32,
+                        backgroundColor: const Color(0xFF3A3F45),
+                        backgroundImage: auth.isLoggedIn
+                            ? NetworkImage(auth.userProfileImage!)
+                            : null,
+                        child: auth.isLoggedIn
+                            ? null
+                            : const Icon(
+                                Icons.person_outline,
+                                color: Colors.white,
+                                size: 32,
+                              ),
+                      ),
+                      const SizedBox(width: 16),
+                      Expanded(
+                        child: Text(
+                          auth.isLoggedIn
+                              ? (auth.userName ?? 'Unknown')
+                              : '로그인하면 도감과 기록을 확인할 수 있어요!',
+                          style: TextStyle(
+                            fontSize: auth.isLoggedIn ? 20 : 16,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
-                  const SizedBox(height: 16),
-                  Text(
-                    auth.userName ?? '',
-                    style: const TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ],
-              )
-            : Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
+                  const SizedBox(height: 24),
                   GestureDetector(
                     onTap: () async {
-                      await auth.loginWithNaver();
+                      auth.isLoggedIn
+                          ? await auth.logout()
+                          : await auth.loginWithNaver();
                     },
                     child: Container(
-                      padding: const EdgeInsets.symmetric(vertical: 12.0),
+                      padding: const EdgeInsets.symmetric(vertical: 10),
                       decoration: BoxDecoration(
-                        color: const Color(0xFF03C75A),
+                        color: auth.isLoggedIn
+                            ? const Color(0xFF3A3F45)
+                            : const Color(0xFF03C75A),
                         borderRadius: BorderRadius.circular(12),
                       ),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Image.asset(
-                            'assets/images/naver_icon.png',
-                            width: 36,
-                            height: 36,
-                          ),
+                          auth.isLoggedIn
+                              ? const Icon(Icons.logout, color: Colors.white)
+                              : Image.asset(
+                                  'assets/images/naver_icon.png',
+                                  width: 36,
+                                  height: 36,
+                                ),
                           const SizedBox(width: 8),
-                          const Text(
-                            '네이버 로그인',
-                            style: TextStyle(
+                          Text(
+                            auth.isLoggedIn ? '로그아웃' : '네이버 로그인',
+                            style: const TextStyle(
                               color: Colors.white,
                               fontSize: 18,
-                              fontWeight: FontWeight.w700,
+                              fontWeight: FontWeight.bold,
                             ),
                           ),
                         ],
@@ -68,6 +100,9 @@ class SettingsPage extends StatelessWidget {
                   ),
                 ],
               ),
+            ),
+          ],
+        ),
       ),
     );
   }

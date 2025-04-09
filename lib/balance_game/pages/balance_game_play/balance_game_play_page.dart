@@ -106,7 +106,7 @@ class _BalanceGamePlayView extends StatelessWidget {
                               borderRadius: BorderRadius.circular(20),
                             ),
                             padding: const EdgeInsets.symmetric(
-                                horizontal: 24, vertical: 12),
+                                horizontal: 20, vertical: 12),
                           ),
                           child: const Text('통계 보기'),
                         ),
