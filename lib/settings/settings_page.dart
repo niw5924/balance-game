@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../auth/auth_provider.dart';
+import '../widgets/custom_confirm_dialog.dart';
 
 class SettingsPage extends StatelessWidget {
   const SettingsPage({super.key});
@@ -63,9 +64,18 @@ class SettingsPage extends StatelessWidget {
                   const SizedBox(height: 24),
                   GestureDetector(
                     onTap: () async {
-                      auth.isLoggedIn
-                          ? await auth.logout()
-                          : await auth.loginWithNaver();
+                      if (auth.isLoggedIn) {
+                        final shouldLogout = await showCustomConfirmDialog(
+                          context: context,
+                          title: '로그아웃',
+                          content: '로그아웃하시겠어요?',
+                        );
+                        if (shouldLogout == true) {
+                          await auth.logout();
+                        }
+                      } else {
+                        await auth.loginWithNaver();
+                      }
                     },
                     child: Container(
                       padding: const EdgeInsets.symmetric(vertical: 10),
