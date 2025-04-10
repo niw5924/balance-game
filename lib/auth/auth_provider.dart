@@ -5,22 +5,31 @@ import 'storage_helper.dart';
 enum SocialLoginMethod { naver, google, kakao }
 
 class AuthProvider extends ChangeNotifier {
+  String? userId;
   String? userName;
   String? userProfileImage;
   SocialLoginMethod? currentLoginMethod;
 
-  bool get isLoggedIn => userName != null && userProfileImage != null;
+  bool get isLoggedIn =>
+      userId != null && userName != null && userProfileImage != null;
 
-  void _setUser({required String name, required String profileImage}) {
+  void _setUser({
+    required String id,
+    required String name,
+    required String profileImage,
+  }) {
+    userId = id;
     userName = name;
     userProfileImage = profileImage;
     debugPrint('로그인 완료');
+    debugPrint('ID: $userId');
     debugPrint('이름: $userName');
     debugPrint('프로필: $userProfileImage');
     notifyListeners();
   }
 
   void _clearUser() {
+    userId = null;
     userName = null;
     userProfileImage = null;
     currentLoginMethod = null;
@@ -45,14 +54,16 @@ class AuthProvider extends ChangeNotifier {
           final naverToken = await FlutterNaverLogin.currentAccessToken;
           if (naverToken.accessToken.isNotEmpty) {
             final account = await FlutterNaverLogin.currentAccount();
-            _setUser(name: account.name, profileImage: account.profileImage);
+            _setUser(
+              id: account.id,
+              name: account.name,
+              profileImage: account.profileImage,
+            );
             currentLoginMethod = savedLoginMethod;
           }
           break;
-
         case SocialLoginMethod.google:
           break;
-
         case SocialLoginMethod.kakao:
           break;
       }
@@ -68,7 +79,11 @@ class AuthProvider extends ChangeNotifier {
       await StorageHelper.saveToken(SocialLoginMethod.naver, token.accessToken);
       await StorageHelper.saveLoginMethod(SocialLoginMethod.naver);
       final account = result.account;
-      _setUser(name: account.name, profileImage: account.profileImage);
+      _setUser(
+        id: account.id,
+        name: account.name,
+        profileImage: account.profileImage,
+      );
       currentLoginMethod = SocialLoginMethod.naver;
     }
   }
@@ -79,13 +94,10 @@ class AuthProvider extends ChangeNotifier {
         await FlutterNaverLogin.logOutAndDeleteToken();
         await StorageHelper.clearToken(SocialLoginMethod.naver);
         break;
-
       case SocialLoginMethod.google:
         break;
-
       case SocialLoginMethod.kakao:
         break;
-
       case null:
         break;
     }
