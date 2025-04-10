@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import '../balance_game/pages/balance_game_page.dart';
-import '../dictionary/dictionary_page.dart';
+import '../dictionary/pages/dictionary_page.dart';
 import '../record/record_page.dart';
 import '../settings/settings_page.dart';
 
@@ -14,11 +14,11 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   int _currentIndex = 0;
 
-  final List<Widget> _pages = const [
-    BalanceGamePage(),
+  final List<Widget> _pages = [
+    const BalanceGamePage(),
     DictionaryPage(),
-    RecordPage(),
-    SettingsPage(),
+    const RecordPage(),
+    const SettingsPage(),
   ];
 
   final List<BottomNavigationBarItem> _bottomItems = [
