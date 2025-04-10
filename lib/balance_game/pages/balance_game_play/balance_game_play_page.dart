@@ -178,7 +178,22 @@ class _BalanceGamePlayViewState extends State<_BalanceGamePlayView> {
 
                                   if (shouldLogin == true) {
                                     await auth.loginWithNaver();
+
+                                    if (auth.isLoggedIn) {
+                                      Flushbar(
+                                        message: "${auth.userName}님 환영합니다!",
+                                        duration: const Duration(seconds: 2),
+                                        backgroundColor: category.mainColor,
+                                        margin: const EdgeInsets.all(16),
+                                        borderRadius: BorderRadius.circular(8),
+                                        icon: const Icon(
+                                          Icons.person,
+                                          color: Colors.white,
+                                        ),
+                                      ).show(context);
+                                    }
                                   }
+
                                   return;
                                 }
 
@@ -188,23 +203,37 @@ class _BalanceGamePlayViewState extends State<_BalanceGamePlayView> {
                                       MapEntry(key.toString(), value),
                                 );
 
-                                await ApiService.savePlayRecord(
-                                  userId: auth.userId!,
-                                  category: category.title,
-                                  selectedAnswers: selectedAnswers,
-                                );
+                                try {
+                                  await ApiService.savePlayRecord(
+                                    userId: auth.userId!,
+                                    category: category.title,
+                                    selectedAnswers: selectedAnswers,
+                                  );
 
-                                Flushbar(
-                                  message: "기록이 저장되었습니다!",
-                                  duration: const Duration(seconds: 2),
-                                  backgroundColor: Colors.green,
-                                  margin: const EdgeInsets.all(16),
-                                  borderRadius: BorderRadius.circular(8),
-                                  icon: const Icon(
-                                    Icons.check_circle_rounded,
-                                    color: Colors.white,
-                                  ),
-                                ).show(context);
+                                  Flushbar(
+                                    message: "기록이 저장되었습니다!",
+                                    duration: const Duration(seconds: 2),
+                                    backgroundColor: Colors.green,
+                                    margin: const EdgeInsets.all(16),
+                                    borderRadius: BorderRadius.circular(8),
+                                    icon: const Icon(
+                                      Icons.check_circle_rounded,
+                                      color: Colors.white,
+                                    ),
+                                  ).show(context);
+                                } catch (e) {
+                                  Flushbar(
+                                    message: e.toString(),
+                                    duration: const Duration(seconds: 2),
+                                    backgroundColor: Colors.black,
+                                    margin: const EdgeInsets.all(16),
+                                    borderRadius: BorderRadius.circular(8),
+                                    icon: const Icon(
+                                      Icons.error,
+                                      color: Colors.red,
+                                    ),
+                                  ).show(context);
+                                }
                               },
                               style: ElevatedButton.styleFrom(
                                 backgroundColor: Colors.white,

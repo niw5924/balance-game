@@ -41,7 +41,7 @@ class ApiService {
     );
 
     if (response.statusCode != 200) {
-      throw Exception('Failed to save play record: ${response.body}');
+      throw Exception(response.body);
     }
   }
 }
