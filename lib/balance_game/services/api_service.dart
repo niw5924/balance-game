@@ -9,19 +9,39 @@ class ApiService {
       String category) async {
     final response = await http.get(Uri.parse('$baseUrl/api/questions'));
 
-    if (response.statusCode == 200) {
-      final data = json.decode(response.body) as List;
+    if (response.statusCode != 200) {
+      throw Exception('Failed to load questions: ${response.body}');
+    }
 
-      final List<Question> questions = data
-          .map((json) => Question.fromJson(json))
-          .where((q) => q.category == category)
-          .toList();
+    final data = json.decode(response.body) as List;
 
-      questions.shuffle();
+    final List<Question> questions = data
+        .map((json) => Question.fromJson(json))
+        .where((q) => q.category == category)
+        .toList();
 
-      return questions;
-    } else {
-      throw Exception('Failed to load questions');
+    questions.shuffle();
+
+    return questions;
+  }
+
+  static Future<void> savePlayRecord({
+    required String userId,
+    required String category,
+    required Map<String, int> selectedAnswers,
+  }) async {
+    final response = await http.post(
+      Uri.parse('$baseUrl/api/user_play_records'),
+      headers: {'Content-Type': 'application/json'},
+      body: jsonEncode({
+        'user_id': userId,
+        'category': category,
+        'selected_answers': selectedAnswers,
+      }),
+    );
+
+    if (response.statusCode != 200) {
+      throw Exception('Failed to save play record: ${response.body}');
     }
   }
 }

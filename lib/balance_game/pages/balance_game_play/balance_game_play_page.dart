@@ -5,6 +5,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/services.dart';
 import 'package:balance_game/balance_game/models/category_model.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
+import '../../../auth/auth_provider.dart';
+import '../../../widgets/custom_dialog.dart';
+import '../../services/api_service.dart';
 import 'balance_game_play_page_cubit.dart';
 import 'balance_game_play_page_state.dart';
 import 'type_chart_dialog.dart';
@@ -137,24 +140,84 @@ class _BalanceGamePlayViewState extends State<_BalanceGamePlayView> {
                           ),
                         ),
                         const SizedBox(height: 12),
-                        ElevatedButton(
-                          onPressed: () {
-                            showDialog(
-                              context: context,
-                              builder: (_) =>
-                                  TypeChartDialog(typeCountMap: typeCountMap),
-                            );
-                          },
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: category.mainColor,
-                            foregroundColor: Colors.white,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(20),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            ElevatedButton(
+                              onPressed: () {
+                                showDialog(
+                                  context: context,
+                                  builder: (_) => TypeChartDialog(
+                                      typeCountMap: typeCountMap),
+                                );
+                              },
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: category.mainColor,
+                                foregroundColor: Colors.white,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(20),
+                                ),
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 20, vertical: 12),
+                              ),
+                              child: const Text('통계 보기'),
                             ),
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 20, vertical: 12),
-                          ),
-                          child: const Text('통계 보기'),
+                            const SizedBox(width: 12),
+                            ElevatedButton(
+                              onPressed: () async {
+                                final auth = context.read<AuthProvider>();
+
+                                if (!auth.isLoggedIn) {
+                                  final shouldLogin = await showCustomDialog(
+                                    context: context,
+                                    title: '로그인이 필요해요',
+                                    content: '기록을 저장하려면 로그인 해주세요!',
+                                    cancelText: '닫기',
+                                    confirmText: '로그인',
+                                  );
+
+                                  if (shouldLogin == true) {
+                                    await auth.loginWithNaver();
+                                  }
+                                  return;
+                                }
+
+                                final selectedAnswers =
+                                    state.selectedAnswers.map(
+                                  (key, value) =>
+                                      MapEntry(key.toString(), value),
+                                );
+
+                                await ApiService.savePlayRecord(
+                                  userId: auth.userId!,
+                                  category: category.title,
+                                  selectedAnswers: selectedAnswers,
+                                );
+
+                                Flushbar(
+                                  message: "기록이 저장되었습니다!",
+                                  duration: const Duration(seconds: 2),
+                                  backgroundColor: Colors.green,
+                                  margin: const EdgeInsets.all(16),
+                                  borderRadius: BorderRadius.circular(8),
+                                  icon: const Icon(
+                                    Icons.check_circle_rounded,
+                                    color: Colors.white,
+                                  ),
+                                ).show(context);
+                              },
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: Colors.white,
+                                foregroundColor: category.mainColor,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(20),
+                                ),
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 20, vertical: 12),
+                              ),
+                              child: const Text('저장하기'),
+                            ),
+                          ],
                         ),
                         const SizedBox(height: 24),
                         ListView.separated(
