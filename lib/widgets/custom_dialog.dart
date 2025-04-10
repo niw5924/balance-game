@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 
-Future<bool?> showCustomConfirmDialog({
+Future<bool?> showCustomDialog({
   required BuildContext context,
   required String title,
   required String content,
+  required String cancelText,
+  required String confirmText,
 }) {
   return showDialog<bool>(
     context: context,
@@ -48,10 +50,10 @@ Future<bool?> showCustomConfirmDialog({
                       borderRadius: const BorderRadius.only(
                         bottomLeft: Radius.circular(12),
                       ),
-                      child: const Center(
+                      child: Center(
                         child: Text(
-                          '취소',
-                          style: TextStyle(
+                          cancelText,
+                          style: const TextStyle(
                             color: Colors.black,
                             fontSize: 16,
                           ),
@@ -66,10 +68,10 @@ Future<bool?> showCustomConfirmDialog({
                       borderRadius: const BorderRadius.only(
                         bottomRight: Radius.circular(12),
                       ),
-                      child: const Center(
+                      child: Center(
                         child: Text(
-                          '확인',
-                          style: TextStyle(
+                          confirmText,
+                          style: const TextStyle(
                             color: Colors.black,
                             fontSize: 16,
                           ),

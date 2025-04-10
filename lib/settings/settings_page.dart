@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../auth/auth_provider.dart';
-import '../widgets/custom_confirm_dialog.dart';
+import '../widgets/custom_dialog.dart';
 
 class SettingsPage extends StatelessWidget {
   const SettingsPage({super.key});
@@ -65,10 +65,12 @@ class SettingsPage extends StatelessWidget {
                   GestureDetector(
                     onTap: () async {
                       if (auth.isLoggedIn) {
-                        final shouldLogout = await showCustomConfirmDialog(
+                        final shouldLogout = await showCustomDialog(
                           context: context,
                           title: '로그아웃',
                           content: '로그아웃하시겠어요?',
+                          cancelText: '취소',
+                          confirmText: '확인',
                         );
                         if (shouldLogout == true) {
                           await auth.logout();
