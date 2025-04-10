@@ -4,6 +4,7 @@ import 'package:flutter_animated_button/flutter_animated_button.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/services.dart';
 import 'package:balance_game/balance_game/models/category_model.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'balance_game_play_page_cubit.dart';
 import 'balance_game_play_page_state.dart';
 import 'type_chart_dialog.dart';
@@ -22,7 +23,43 @@ class BalanceGamePlayPage extends StatelessWidget {
   }
 }
 
-class _BalanceGamePlayView extends StatelessWidget {
+class _BalanceGamePlayView extends StatefulWidget {
+  @override
+  State<_BalanceGamePlayView> createState() => _BalanceGamePlayViewState();
+}
+
+class _BalanceGamePlayViewState extends State<_BalanceGamePlayView> {
+  BannerAd? _bannerAd;
+  bool _isAdLoaded = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _bannerAd = BannerAd(
+      adUnitId: 'ca-app-pub-3940256099942544/6300978111',
+      size: AdSize.banner,
+      request: const AdRequest(),
+      listener: BannerAdListener(
+        onAdLoaded: (ad) {
+          setState(() {
+            _isAdLoaded = true;
+          });
+          debugPrint('광고 로드 완료');
+        },
+        onAdFailedToLoad: (ad, error) {
+          debugPrint('광고 로드 실패: ${error.message}');
+          ad.dispose();
+        },
+      ),
+    )..load();
+  }
+
+  @override
+  void dispose() {
+    _bannerAd?.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<BalanceGamePlayPageCubit, BalanceGamePlayPageState>(
@@ -35,6 +72,15 @@ class _BalanceGamePlayView extends StatelessWidget {
             title: Text(category.title),
           ),
           backgroundColor: category.backgroundColor,
+          bottomNavigationBar:
+              (state.status == BalanceGamePlayStatus.inProgress && _isAdLoaded)
+                  ? Container(
+                      height: _bannerAd!.size.height.toDouble(),
+                      width: _bannerAd!.size.width.toDouble(),
+                      alignment: Alignment.center,
+                      child: AdWidget(ad: _bannerAd!),
+                    )
+                  : null,
           body: Builder(
             builder: (_) {
               if (state.isLoading) {
@@ -160,6 +206,7 @@ class _BalanceGamePlayView extends StatelessWidget {
                 );
               }
 
+              /// inProgress
               final currentQuestion = state.questions[state.currentIndex];
               final currentSelected = state.selectedAnswers[state.currentIndex];
 
