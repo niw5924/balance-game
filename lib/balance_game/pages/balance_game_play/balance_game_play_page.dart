@@ -112,7 +112,6 @@ class _BalanceGamePlayViewState extends State<_BalanceGamePlayView> {
 
               if (state.status == BalanceGamePlayStatus.completed) {
                 final typeCountMap = <String, int>{};
-
                 for (int i = 0; i < state.questions.length; i++) {
                   final selectedIndex = state.selectedAnswers[i]!;
                   final selectedOption =
@@ -178,7 +177,6 @@ class _BalanceGamePlayViewState extends State<_BalanceGamePlayView> {
 
                                   if (shouldLogin == true) {
                                     await auth.loginWithNaver();
-
                                     if (auth.isLoggedIn) {
                                       Flushbar(
                                         message: "${auth.userName}님 환영합니다!",
@@ -204,10 +202,11 @@ class _BalanceGamePlayViewState extends State<_BalanceGamePlayView> {
                                 );
 
                                 try {
-                                  await ApiService.savePlayRecord(
+                                  await ApiService.submitPlayResult(
                                     userId: auth.userId!,
                                     category: category.title,
                                     selectedAnswers: selectedAnswers,
+                                    typeCounts: typeCountMap,
                                   );
 
                                   Flushbar(

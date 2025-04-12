@@ -25,18 +25,20 @@ class ApiService {
     return questions;
   }
 
-  static Future<void> savePlayRecord({
+  static Future<void> submitPlayResult({
     required String userId,
     required String category,
     required Map<String, int> selectedAnswers,
+    required Map<String, int> typeCounts,
   }) async {
     final response = await http.post(
-      Uri.parse('$baseUrl/api/user_play_records'),
+      Uri.parse('$baseUrl/api/submit_play_result'),
       headers: {'Content-Type': 'application/json'},
       body: jsonEncode({
         'user_id': userId,
         'category': category,
         'selected_answers': selectedAnswers,
+        'type_counts': typeCounts,
       }),
     );
 
