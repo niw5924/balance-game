@@ -47,7 +47,7 @@ class _DictionaryPageState extends State<DictionaryPage> {
                     topRight: Radius.circular(20),
                   ),
                   child: Image.asset(
-                    'assets/images/naver_icon.png',
+                    type.image,
                     height: 300,
                     width: double.infinity,
                     fit: BoxFit.cover,
@@ -74,12 +74,15 @@ class _DictionaryPageState extends State<DictionaryPage> {
                         ),
                       ),
                       const SizedBox(height: 12),
-                      Text(
-                        type.description,
-                        textAlign: TextAlign.center,
-                        style: const TextStyle(
-                          fontSize: 16,
-                          color: Colors.black,
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 24),
+                        child: Text(
+                          type.description,
+                          textAlign: TextAlign.center,
+                          style: const TextStyle(
+                            fontSize: 16,
+                            color: Colors.black,
+                          ),
                         ),
                       ),
                     ],
