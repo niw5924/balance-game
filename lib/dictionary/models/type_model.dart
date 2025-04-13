@@ -13,12 +13,12 @@ class TypeModel {
 const List<TypeModel> typeList = [
   TypeModel(
     name: '감성형',
-    description: '감성으로 세상을 느끼는 문학 소년/소녀 감성 🎨',
+    description: '감성으로 세상을 느끼는 문학 소년/소녀 스타일 🎨',
     image: 'assets/images/type_emotional.png',
   ),
   TypeModel(
     name: '이성형',
-    description: '감정보다 논리가 우선! 데이터가 말해주는 스타일 📊',
+    description: '감정보다 논리가 우선! 데이터가 말해주는 스타일 🔢',
     image: 'assets/images/type_logical.png',
   ),
   TypeModel(
@@ -33,7 +33,7 @@ const List<TypeModel> typeList = [
   ),
   TypeModel(
     name: '자기중심형',
-    description: '세상의 중심은 나! 본투비 메인캐 ✨',
+    description: '세상의 중심은 나! 본투비 메인캐 👑',
     image: 'assets/images/type_selfcentered.png',
   ),
   TypeModel(
@@ -43,7 +43,7 @@ const List<TypeModel> typeList = [
   ),
   TypeModel(
     name: '돌직구형',
-    description: '오승환 전성기급 돌직구! 돌려 말할 줄 모름 🧱',
+    description: '오승환 전성기급 돌직구! 돌려 말할 줄 모름 💥',
     image: 'assets/images/type_blunt.png',
   ),
   TypeModel(
@@ -53,7 +53,7 @@ const List<TypeModel> typeList = [
   ),
   TypeModel(
     name: '현실주의형',
-    description: '팩트와 실리를 우선! 발 땅에 붙은 타입 💼',
+    description: '팩트와 실리를 우선! 현실 감각 충만한 타입 💼',
     image: 'assets/images/type_realist.png',
   ),
   TypeModel(

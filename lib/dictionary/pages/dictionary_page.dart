@@ -74,15 +74,12 @@ class _DictionaryPageState extends State<DictionaryPage> {
                         ),
                       ),
                       const SizedBox(height: 12),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 24),
-                        child: Text(
-                          type.description,
-                          textAlign: TextAlign.center,
-                          style: const TextStyle(
-                            fontSize: 16,
-                            color: Colors.black,
-                          ),
+                      Text(
+                        type.description,
+                        textAlign: TextAlign.center,
+                        style: const TextStyle(
+                          fontSize: 16,
+                          color: Colors.black,
                         ),
                       ),
                     ],
