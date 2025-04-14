@@ -15,7 +15,10 @@ T _$identity<T>(T value) => value;
 
 /// @nodoc
 mixin _$DictionaryPageState {
+  bool get isLoading;
+  String? get error;
   int get currentIndex;
+  Map<String, int> get typeCounts;
 
   /// Create a copy of DictionaryPageState
   /// with the given fields replaced by the non-null parameter values.
@@ -30,16 +33,22 @@ mixin _$DictionaryPageState {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is DictionaryPageState &&
+            (identical(other.isLoading, isLoading) ||
+                other.isLoading == isLoading) &&
+            (identical(other.error, error) || other.error == error) &&
             (identical(other.currentIndex, currentIndex) ||
-                other.currentIndex == currentIndex));
+                other.currentIndex == currentIndex) &&
+            const DeepCollectionEquality()
+                .equals(other.typeCounts, typeCounts));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, currentIndex);
+  int get hashCode => Object.hash(runtimeType, isLoading, error, currentIndex,
+      const DeepCollectionEquality().hash(typeCounts));
 
   @override
   String toString() {
-    return 'DictionaryPageState(currentIndex: $currentIndex)';
+    return 'DictionaryPageState(isLoading: $isLoading, error: $error, currentIndex: $currentIndex, typeCounts: $typeCounts)';
   }
 }
 
@@ -49,7 +58,11 @@ abstract mixin class $DictionaryPageStateCopyWith<$Res> {
           DictionaryPageState value, $Res Function(DictionaryPageState) _then) =
       _$DictionaryPageStateCopyWithImpl;
   @useResult
-  $Res call({int currentIndex});
+  $Res call(
+      {bool isLoading,
+      String? error,
+      int currentIndex,
+      Map<String, int> typeCounts});
 }
 
 /// @nodoc
@@ -65,13 +78,28 @@ class _$DictionaryPageStateCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? isLoading = null,
+    Object? error = freezed,
     Object? currentIndex = null,
+    Object? typeCounts = null,
   }) {
     return _then(_self.copyWith(
+      isLoading: null == isLoading
+          ? _self.isLoading
+          : isLoading // ignore: cast_nullable_to_non_nullable
+              as bool,
+      error: freezed == error
+          ? _self.error
+          : error // ignore: cast_nullable_to_non_nullable
+              as String?,
       currentIndex: null == currentIndex
           ? _self.currentIndex
           : currentIndex // ignore: cast_nullable_to_non_nullable
               as int,
+      typeCounts: null == typeCounts
+          ? _self.typeCounts
+          : typeCounts // ignore: cast_nullable_to_non_nullable
+              as Map<String, int>,
     ));
   }
 }
@@ -79,11 +107,29 @@ class _$DictionaryPageStateCopyWithImpl<$Res>
 /// @nodoc
 
 class _DictionaryPageState implements DictionaryPageState {
-  const _DictionaryPageState({this.currentIndex = 0});
+  const _DictionaryPageState(
+      {this.isLoading = true,
+      this.error,
+      this.currentIndex = 0,
+      final Map<String, int> typeCounts = const {}})
+      : _typeCounts = typeCounts;
 
   @override
   @JsonKey()
+  final bool isLoading;
+  @override
+  final String? error;
+  @override
+  @JsonKey()
   final int currentIndex;
+  final Map<String, int> _typeCounts;
+  @override
+  @JsonKey()
+  Map<String, int> get typeCounts {
+    if (_typeCounts is EqualUnmodifiableMapView) return _typeCounts;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableMapView(_typeCounts);
+  }
 
   /// Create a copy of DictionaryPageState
   /// with the given fields replaced by the non-null parameter values.
@@ -99,16 +145,22 @@ class _DictionaryPageState implements DictionaryPageState {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _DictionaryPageState &&
+            (identical(other.isLoading, isLoading) ||
+                other.isLoading == isLoading) &&
+            (identical(other.error, error) || other.error == error) &&
             (identical(other.currentIndex, currentIndex) ||
-                other.currentIndex == currentIndex));
+                other.currentIndex == currentIndex) &&
+            const DeepCollectionEquality()
+                .equals(other._typeCounts, _typeCounts));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, currentIndex);
+  int get hashCode => Object.hash(runtimeType, isLoading, error, currentIndex,
+      const DeepCollectionEquality().hash(_typeCounts));
 
   @override
   String toString() {
-    return 'DictionaryPageState(currentIndex: $currentIndex)';
+    return 'DictionaryPageState(isLoading: $isLoading, error: $error, currentIndex: $currentIndex, typeCounts: $typeCounts)';
   }
 }
 
@@ -120,7 +172,11 @@ abstract mixin class _$DictionaryPageStateCopyWith<$Res>
       __$DictionaryPageStateCopyWithImpl;
   @override
   @useResult
-  $Res call({int currentIndex});
+  $Res call(
+      {bool isLoading,
+      String? error,
+      int currentIndex,
+      Map<String, int> typeCounts});
 }
 
 /// @nodoc
@@ -136,13 +192,28 @@ class __$DictionaryPageStateCopyWithImpl<$Res>
   @override
   @pragma('vm:prefer-inline')
   $Res call({
+    Object? isLoading = null,
+    Object? error = freezed,
     Object? currentIndex = null,
+    Object? typeCounts = null,
   }) {
     return _then(_DictionaryPageState(
+      isLoading: null == isLoading
+          ? _self.isLoading
+          : isLoading // ignore: cast_nullable_to_non_nullable
+              as bool,
+      error: freezed == error
+          ? _self.error
+          : error // ignore: cast_nullable_to_non_nullable
+              as String?,
       currentIndex: null == currentIndex
           ? _self.currentIndex
           : currentIndex // ignore: cast_nullable_to_non_nullable
               as int,
+      typeCounts: null == typeCounts
+          ? _self._typeCounts
+          : typeCounts // ignore: cast_nullable_to_non_nullable
+              as Map<String, int>,
     ));
   }
 }
