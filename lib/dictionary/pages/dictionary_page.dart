@@ -79,7 +79,9 @@ class _DictionaryView extends StatelessWidget {
                             topRight: Radius.circular(20),
                           ),
                           child: Image.asset(
-                            type.image,
+                            auth.isLoggedIn
+                                ? type.image
+                                : 'assets/images/type_not_logged_in.png',
                             height: 300,
                             width: double.infinity,
                             fit: BoxFit.cover,
