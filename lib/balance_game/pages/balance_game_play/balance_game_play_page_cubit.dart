@@ -1,6 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:balance_game/balance_game/services/api_service.dart';
 import 'package:balance_game/balance_game/models/category_model.dart';
+import '../../../services/fetch_questions_by_category.dart';
 import 'balance_game_play_page_state.dart';
 
 class BalanceGamePlayPageCubit extends Cubit<BalanceGamePlayPageState> {
@@ -9,8 +9,7 @@ class BalanceGamePlayPageCubit extends Cubit<BalanceGamePlayPageState> {
   Future<void> loadQuestions(Category category) async {
     emit(state.copyWith(isLoading: true, error: null, category: category));
     try {
-      final questions =
-          await ApiService.fetchQuestionsByCategory(category.title);
+      final questions = await fetchQuestionsByCategory(category.title);
       emit(state.copyWith(
         isLoading: false,
         questions: questions,

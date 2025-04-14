@@ -1,5 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:balance_game/dictionary/services/dictionary_api_service.dart';
+import '../../services/fetch_user_type_counts.dart';
 import 'dictionary_page_state.dart';
 
 class DictionaryPageCubit extends Cubit<DictionaryPageState> {
@@ -13,7 +13,7 @@ class DictionaryPageCubit extends Cubit<DictionaryPageState> {
 
     emit(state.copyWith(isLoading: true, error: null));
     try {
-      final counts = await DictionaryApiService.fetchUserTypeCounts(userId);
+      final counts = await fetchUserTypeCounts(userId);
       emit(state.copyWith(isLoading: false, typeCounts: counts));
     } catch (e) {
       emit(state.copyWith(isLoading: false, error: e.toString()));
