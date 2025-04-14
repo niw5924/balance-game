@@ -3,7 +3,7 @@ import 'package:http/http.dart' as http;
 import '../models/question_model.dart';
 
 class ApiService {
-  static const String baseUrl = 'http://192.168.35.119:3000';
+  static const String baseUrl = 'http://192.168.35.85:3000';
 
   static Future<List<Question>> fetchQuestionsByCategory(
       String category) async {
