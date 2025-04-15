@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pie_chart/pie_chart.dart';
 
 import '../../auth/auth_provider.dart';
+import '../dictionary/models/type_model.dart';
 import 'type_page_cubit.dart';
 import 'type_page_state.dart';
 
@@ -25,8 +26,7 @@ class _TypeView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final screenWidth = MediaQuery.of(context).size.width;
-    final chartRadius = screenWidth * 0.6;
+    final chartRadius = MediaQuery.of(context).size.width * 0.6;
 
     return Scaffold(
       backgroundColor: const Color(0xFF101418),
@@ -66,6 +66,11 @@ class _TypeView extends StatelessWidget {
               entry.key: entry.value.toDouble()
           };
 
+          final colorList = [
+            for (var key in state.typeCounts.keys)
+              typeList.firstWhere((type) => type.name == key).color
+          ];
+
           final maxCount =
               state.typeCounts.values.reduce((a, b) => a > b ? a : b);
           final mostFrequentTypes = state.typeCounts.entries
@@ -82,6 +87,7 @@ class _TypeView extends StatelessWidget {
                   chartType: ChartType.ring,
                   chartRadius: chartRadius,
                   ringStrokeWidth: chartRadius / 5,
+                  colorList: colorList,
                   legendOptions: const LegendOptions(
                     showLegendsInRow: true,
                     legendPosition: LegendPosition.top,
@@ -98,12 +104,48 @@ class _TypeView extends StatelessWidget {
                 ),
                 Expanded(
                   child: Center(
-                    child: Text(
-                      '나는 ${mostFrequentTypes.join(", ")}이에요!',
-                      style: const TextStyle(
-                        color: Colors.white,
-                        fontSize: 18,
+                    child: Text.rich(
+                      TextSpan(
+                        children: [
+                          const TextSpan(
+                            text: '나는 ',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 18,
+                            ),
+                          ),
+                          for (int i = 0;
+                              i < mostFrequentTypes.length;
+                              i++) ...[
+                            TextSpan(
+                              text: mostFrequentTypes[i],
+                              style: TextStyle(
+                                color: typeList
+                                    .firstWhere((type) =>
+                                        type.name == mostFrequentTypes[i])
+                                    .color,
+                                fontSize: 18,
+                              ),
+                            ),
+                            if (i < mostFrequentTypes.length - 1)
+                              const TextSpan(
+                                text: ', ',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 18,
+                                ),
+                              ),
+                          ],
+                          const TextSpan(
+                            text: '이에요!',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 18,
+                            ),
+                          ),
+                        ],
                       ),
+                      textAlign: TextAlign.center,
                     ),
                   ),
                 ),

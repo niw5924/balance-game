@@ -1,16 +1,28 @@
 import 'package:flutter/material.dart';
 import 'package:pie_chart/pie_chart.dart';
 
+import '../../../dictionary/models/type_model.dart';
+
 class TypeChartDialog extends StatelessWidget {
   final Map<String, int> typeCountMap;
 
-  const TypeChartDialog({super.key, required this.typeCountMap});
+  const TypeChartDialog({
+    super.key,
+    required this.typeCountMap,
+  });
 
   @override
   Widget build(BuildContext context) {
     final dataMap = {
       for (var entry in typeCountMap.entries) entry.key: entry.value.toDouble()
     };
+
+    final colorList = [
+      for (var key in typeCountMap.keys)
+        typeList.firstWhere((type) => type.name == key).color
+    ];
+
+    final chartRadius = MediaQuery.of(context).size.width * 0.4;
 
     return Dialog(
       child: Padding(
@@ -26,8 +38,9 @@ class TypeChartDialog extends StatelessWidget {
             PieChart(
               dataMap: dataMap,
               chartType: ChartType.ring,
-              chartRadius: 200,
-              ringStrokeWidth: 40,
+              chartRadius: chartRadius,
+              ringStrokeWidth: chartRadius / 5,
+              colorList: colorList,
               legendOptions: const LegendOptions(
                 showLegendsInRow: true,
                 legendPosition: LegendPosition.top,
@@ -40,7 +53,10 @@ class TypeChartDialog extends StatelessWidget {
             const SizedBox(height: 30),
             TextButton(
               onPressed: () => Navigator.pop(context),
-              child: const Text('닫기', style: TextStyle(fontSize: 20)),
+              child: const Text(
+                '닫기',
+                style: TextStyle(fontSize: 20),
+              ),
             ),
           ],
         ),
