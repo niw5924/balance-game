@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pie_chart/pie_chart.dart';
 
 import '../../auth/auth_provider.dart';
-import '../dictionary/models/type_model.dart';
+import '../models/type_model.dart';
 import 'type_page_cubit.dart';
 import 'type_page_state.dart';
 

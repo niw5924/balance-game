@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_card_swiper/flutter_card_swiper.dart';
 import '../models/type_model.dart';
-import '../../auth/auth_provider.dart';
+import '../auth/auth_provider.dart';
 import 'dictionary_page_cubit.dart';
 import 'dictionary_page_state.dart';
 
@@ -94,10 +94,10 @@ class _DictionaryView extends StatelessWidget {
                                   children: [
                                     Text(
                                       type.name,
-                                      style: const TextStyle(
+                                      style: TextStyle(
                                         fontSize: 24,
                                         fontWeight: FontWeight.bold,
-                                        color: Colors.lightBlue,
+                                        color: type.color,
                                       ),
                                     ),
                                     const SizedBox(height: 8),

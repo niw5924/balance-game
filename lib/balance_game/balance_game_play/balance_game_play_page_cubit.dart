@@ -1,6 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:balance_game/balance_game/models/category_model.dart';
-import '../../../services/fetch_questions_by_category.dart';
+import 'package:balance_game/models/category_model.dart';
+import '../../services/fetch_questions_by_category.dart';
 import 'balance_game_play_page_state.dart';
 
 class BalanceGamePlayPageCubit extends Cubit<BalanceGamePlayPageState> {

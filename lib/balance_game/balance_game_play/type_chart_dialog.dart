@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pie_chart/pie_chart.dart';
 
-import '../../../dictionary/models/type_model.dart';
+import '../../models/type_model.dart';
 
 class TypeChartDialog extends StatelessWidget {
   final Map<String, int> typeCountMap;

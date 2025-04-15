@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import '../balance_game/pages/balance_game_page.dart';
-import '../dictionary/pages/dictionary_page.dart';
+import '../balance_game/balance_game_page.dart';
+import '../dictionary/dictionary_page.dart';
 import '../type/type_page.dart';
 import '../settings/settings_page.dart';
 

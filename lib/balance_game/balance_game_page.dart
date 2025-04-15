@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:balance_game/balance_game/models/category_model.dart';
+import 'package:balance_game/models/category_model.dart';
 
 import 'balance_game_play/balance_game_play_page.dart';
 

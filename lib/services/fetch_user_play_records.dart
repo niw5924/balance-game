@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-import '../record/models/user_play_record_model.dart';
+import '../models/user_play_record_model.dart';
 
 final String baseUrl = dotenv.env['BASE_URL']!;
 

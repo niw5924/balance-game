@@ -1,5 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import '../models/user_play_record_model.dart';
+import '../../models/user_play_record_model.dart';
 
 part 'record_page_state.freezed.dart';
 
