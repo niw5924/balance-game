@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import '../balance_game/pages/balance_game_page.dart';
 import '../dictionary/pages/dictionary_page.dart';
-import '../record/pages/record_page.dart';
+import '../type/type_page.dart';
 import '../settings/settings_page.dart';
 
 class HomePage extends StatefulWidget {
@@ -17,14 +17,14 @@ class _HomePageState extends State<HomePage> {
   final List<Widget> _pages = [
     const BalanceGamePage(),
     DictionaryPage(),
-    const RecordPage(),
+    const TypePage(),
     const SettingsPage(),
   ];
 
   final List<BottomNavigationBarItem> _bottomItems = [
     BottomNavigationBarItem(icon: Icon(Icons.question_mark), label: '밸런스 게임'),
     BottomNavigationBarItem(icon: Icon(Icons.menu_book), label: '도감'),
-    BottomNavigationBarItem(icon: Icon(Icons.bar_chart), label: '기록'),
+    BottomNavigationBarItem(icon: Icon(Icons.person_search), label: '성향'),
     BottomNavigationBarItem(icon: Icon(Icons.settings), label: '설정'),
   ];
 
