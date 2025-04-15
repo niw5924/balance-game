@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import '../balance_game/pages/balance_game_page.dart';
 import '../dictionary/pages/dictionary_page.dart';
-import '../record/record_page.dart';
+import '../record/pages/record_page.dart';
 import '../settings/settings_page.dart';
 
 class HomePage extends StatefulWidget {
