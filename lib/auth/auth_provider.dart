@@ -52,6 +52,7 @@ class AuthProvider extends ChangeNotifier {
       switch (savedLoginMethod) {
         case SocialLoginMethod.naver:
           final naverToken = await FlutterNaverLogin.currentAccessToken;
+          debugPrint(naverToken.accessToken);
           if (naverToken.accessToken.isNotEmpty) {
             final account = await FlutterNaverLogin.currentAccount();
             _setUser(
@@ -60,6 +61,8 @@ class AuthProvider extends ChangeNotifier {
               profileImage: account.profileImage,
             );
             currentLoginMethod = savedLoginMethod;
+          } else {
+            debugPrint('accessToken이 비어 있음. 만료되었거나 무효한 토큰');
           }
           break;
         case SocialLoginMethod.google:

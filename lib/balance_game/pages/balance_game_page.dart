@@ -13,7 +13,7 @@ class BalanceGamePage extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: const Color(0xFF1A1F24),
         title: const Text(
-          '밸런스게임',
+          '밸런스 게임',
           style: TextStyle(color: Colors.white),
         ),
       ),
@@ -22,7 +22,7 @@ class BalanceGamePage extends StatelessWidget {
         child: Column(
           children: [
             const Text(
-              '어떤 밸런스게임을 해볼까요?',
+              '어떤 밸런스 게임을 해볼까요?',
               style: TextStyle(
                 fontSize: 18,
                 fontWeight: FontWeight.w600,
