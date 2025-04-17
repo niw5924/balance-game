@@ -3,8 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:collection/collection.dart';
 
-import '../auth/auth_provider.dart';
-import '../models/category_model.dart';
+import '../../auth/auth_provider.dart';
+import '../../models/category_model.dart';
 import 'record_page_cubit.dart';
 import 'record_page_state.dart';
 

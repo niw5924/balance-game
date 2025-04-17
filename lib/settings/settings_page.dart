@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../auth/auth_provider.dart';
-import '../record/record_page.dart';
+import 'record/record_page.dart';
 import '../widgets/custom_dialog.dart';
 
 class SettingsPage extends StatelessWidget {
@@ -115,36 +115,38 @@ class SettingsPage extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 16),
-            GestureDetector(
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (_) => const RecordPage()),
-                );
-              },
-              child: Container(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 20, vertical: 24),
-                decoration: BoxDecoration(
-                  color: const Color(0xFF1A1F24),
+            Material(
+              color: const Color(0xFF1A1F24),
+              borderRadius: BorderRadius.circular(16),
+              child: ListTile(
+                shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(16),
                 ),
-                child: Row(
-                  children: const [
-                    Icon(Icons.history, color: Colors.white, size: 28),
-                    SizedBox(width: 16),
-                    Expanded(
-                      child: Text(
-                        '나의 밸런스게임 기록 보기',
-                        style: TextStyle(
-                          fontSize: 16,
-                          color: Colors.white,
-                        ),
-                      ),
-                    ),
-                    Icon(Icons.arrow_forward_ios, color: Colors.grey, size: 16),
-                  ],
+                contentPadding:
+                    const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+                leading: const Icon(Icons.history, color: Colors.white),
+                title: const Text(
+                  '나의 선택 히스토리',
+                  style: TextStyle(
+                    fontSize: 16,
+                    color: Colors.white,
+                  ),
                 ),
+                subtitle: const Text(
+                  '내가 어떤 선택을 해왔는지 볼 수 있어요',
+                  style: TextStyle(
+                    fontSize: 13,
+                    color: Colors.grey,
+                  ),
+                ),
+                trailing: const Icon(Icons.arrow_forward_ios,
+                    color: Colors.grey, size: 16),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (_) => const RecordPage()),
+                  );
+                },
               ),
             ),
           ],
