@@ -65,7 +65,11 @@ class _RecordView extends StatelessWidget {
 
           return ListView.separated(
             itemCount: state.records.length,
-            separatorBuilder: (_, __) => const Divider(color: Colors.grey),
+            separatorBuilder: (_, __) => const Divider(
+              color: Color(0xFF3D434C),
+              thickness: 0.8,
+              height: 0.8,
+            ),
             itemBuilder: (context, index) {
               final record = state.records[index];
               final category = categories.firstWhereOrNull(
@@ -73,7 +77,6 @@ class _RecordView extends StatelessWidget {
               )!;
 
               return ListTile(
-                leading: const Icon(Icons.play_arrow, color: Colors.white),
                 title: Text(
                   record.category,
                   style: TextStyle(color: category.mainColor),
@@ -82,6 +85,11 @@ class _RecordView extends StatelessWidget {
                   formatter.format(record.createdAt.toLocal()),
                   style: TextStyle(color: category.backgroundColor),
                 ),
+                trailing: const Icon(Icons.arrow_forward_ios,
+                    color: Colors.grey, size: 16),
+                onTap: () {
+                  // TODO: 상세 페이지로 이동할 예정
+                },
               );
             },
           );
