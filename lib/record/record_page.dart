@@ -37,6 +37,7 @@ class _RecordView extends StatelessWidget {
           '기록',
           style: TextStyle(color: Colors.white),
         ),
+        iconTheme: const IconThemeData(color: Colors.white),
       ),
       body: BlocBuilder<RecordPageCubit, RecordPageState>(
         builder: (context, state) {
