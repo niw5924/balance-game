@@ -19,6 +19,5 @@ Future<List<Question>> fetchQuestionsByCategory(String category) async {
       .where((q) => q.category == category)
       .toList();
 
-  questions.shuffle();
   return questions;
 }
