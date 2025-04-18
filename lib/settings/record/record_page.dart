@@ -5,6 +5,7 @@ import 'package:collection/collection.dart';
 
 import '../../auth/auth_provider.dart';
 import '../../models/category_model.dart';
+import 'record_detail_page.dart';
 import 'record_page_cubit.dart';
 import 'record_page_state.dart';
 
@@ -63,13 +64,8 @@ class _RecordView extends StatelessWidget {
             );
           }
 
-          return ListView.separated(
+          return ListView.builder(
             itemCount: state.records.length,
-            separatorBuilder: (_, __) => const Divider(
-              color: Color(0xFF3D434C),
-              thickness: 0.8,
-              height: 0.8,
-            ),
             itemBuilder: (context, index) {
               final record = state.records[index];
               final category = categories.firstWhereOrNull(
@@ -77,6 +73,14 @@ class _RecordView extends StatelessWidget {
               )!;
 
               return ListTile(
+                leading: Container(
+                  width: 6,
+                  height: 40,
+                  decoration: BoxDecoration(
+                    color: category.mainColor,
+                    borderRadius: BorderRadius.circular(4),
+                  ),
+                ),
                 title: Text(
                   record.category,
                   style: TextStyle(color: category.mainColor),
@@ -88,7 +92,12 @@ class _RecordView extends StatelessWidget {
                 trailing: const Icon(Icons.arrow_forward_ios,
                     color: Colors.grey, size: 16),
                 onTap: () {
-                  // TODO: 상세 페이지로 이동할 예정
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (_) => RecordDetailPage(record: record),
+                    ),
+                  );
                 },
               );
             },
