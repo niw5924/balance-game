@@ -8,6 +8,7 @@ import 'package:google_mobile_ads/google_mobile_ads.dart';
 import '../../../auth/auth_provider.dart';
 import '../../../services/submit_play_result.dart';
 import '../../../widgets/custom_dialog.dart';
+import '../../widgets/question_answer_card.dart';
 import 'balance_game_play_page_cubit.dart';
 import 'balance_game_play_page_state.dart';
 import 'type_chart_dialog.dart';
@@ -255,39 +256,12 @@ class _BalanceGamePlayViewState extends State<_BalanceGamePlayView> {
                           separatorBuilder: (_, __) =>
                               const SizedBox(height: 12),
                           itemBuilder: (context, index) {
-                            final resultQuestion = state.questions[index];
-                            final resultSelected = state.selectedAnswers[index];
-                            final selectedOptionText =
-                                resultQuestion.options[resultSelected!].text;
-
-                            return Container(
-                              padding: const EdgeInsets.all(16),
-                              decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.circular(12),
-                                border: Border.all(color: category.mainColor),
-                              ),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    'Q${index + 1}. ${resultQuestion.question}',
-                                    style: const TextStyle(
-                                      fontSize: 16,
-                                      color: Colors.black,
-                                      fontWeight: FontWeight.w600,
-                                    ),
-                                  ),
-                                  const SizedBox(height: 8),
-                                  Text(
-                                    selectedOptionText,
-                                    style: TextStyle(
-                                      fontSize: 15,
-                                      color: category.mainColor,
-                                    ),
-                                  ),
-                                ],
-                              ),
+                            return QuestionAnswerCard(
+                              category: category,
+                              questionIndex: index,
+                              question: state.questions[index],
+                              selectedOptionIndex:
+                                  state.selectedAnswers[index]!,
                             );
                           },
                         ),

@@ -4,6 +4,7 @@ import '../../models/user_play_record_model.dart';
 import '../../models/category_model.dart';
 import '../../models/question_model.dart';
 import '../../services/fetch_questions_by_category.dart';
+import '../../widgets/question_answer_card.dart';
 
 class RecordDetailPage extends StatefulWidget {
   final UserPlayRecordModel record;
@@ -66,41 +67,11 @@ class _RecordDetailPageState extends State<RecordDetailPage> {
                     separatorBuilder: (_, __) => const SizedBox(height: 12),
                     itemBuilder: (context, index) {
                       final entry = selectedAnswers[index];
-                      final questionIndex = int.parse(entry.key);
-                      final selectedOptionIndex = entry.value;
-
-                      final question = questions[questionIndex];
-                      final selectedOption =
-                          question.options[selectedOptionIndex];
-
-                      return Container(
-                        padding: const EdgeInsets.all(16),
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(12),
-                          border: Border.all(color: category.mainColor),
-                        ),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              'Q${questionIndex + 1}. ${question.question}',
-                              style: const TextStyle(
-                                fontSize: 16,
-                                color: Colors.black,
-                                fontWeight: FontWeight.w600,
-                              ),
-                            ),
-                            const SizedBox(height: 8),
-                            Text(
-                              selectedOption.text,
-                              style: TextStyle(
-                                fontSize: 15,
-                                color: category.mainColor,
-                              ),
-                            ),
-                          ],
-                        ),
+                      return QuestionAnswerCard(
+                        category: category,
+                        questionIndex: int.parse(entry.key),
+                        question: questions[int.parse(entry.key)],
+                        selectedOptionIndex: entry.value,
                       );
                     },
                   ),
