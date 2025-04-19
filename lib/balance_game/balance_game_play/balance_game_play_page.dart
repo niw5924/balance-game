@@ -5,9 +5,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/services.dart';
 import 'package:balance_game/models/category_model.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
+import 'package:share_plus/share_plus.dart';
 import '../../../auth/auth_provider.dart';
 import '../../../services/submit_play_result.dart';
 import '../../../widgets/custom_dialog.dart';
+import '../../utils/share_text_builder.dart';
 import '../../widgets/question_answer_card.dart';
 import 'balance_game_play_page_cubit.dart';
 import 'balance_game_play_page_state.dart';
@@ -245,6 +247,27 @@ class _BalanceGamePlayViewState extends State<_BalanceGamePlayView> {
                                     horizontal: 20, vertical: 12),
                               ),
                               child: const Text('저장하기'),
+                            ),
+                            const SizedBox(width: 12),
+                            ElevatedButton(
+                              onPressed: () {
+                                final resultText = buildResultShareText(
+                                  category: category,
+                                  questions: state.questions,
+                                  selectedAnswers: state.selectedAnswers,
+                                );
+                                Share.share(resultText, subject: '밸런스 게임 결과');
+                              },
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: Colors.white,
+                                foregroundColor: category.mainColor,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(20),
+                                ),
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 20, vertical: 12),
+                              ),
+                              child: const Text('공유하기'),
                             ),
                           ],
                         ),
