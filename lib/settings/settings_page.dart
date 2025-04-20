@@ -149,6 +149,48 @@ class SettingsPage extends StatelessWidget {
                 },
               ),
             ),
+            const SizedBox(height: 16),
+            Material(
+              color: const Color(0xFF1A1F24),
+              borderRadius: BorderRadius.circular(16),
+              child: ListTile(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(16),
+                ),
+                contentPadding:
+                    const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+                leading: const Icon(Icons.delete_forever, color: Colors.white),
+                title: const Text(
+                  '나의 모든 기록 삭제하기',
+                  style: TextStyle(
+                    fontSize: 16,
+                    color: Colors.white,
+                  ),
+                ),
+                subtitle: const Text(
+                  '과거는 뒤로, 새로운 내가 되고 싶다면',
+                  style: TextStyle(
+                    fontSize: 13,
+                    color: Colors.grey,
+                  ),
+                ),
+                trailing: const Icon(Icons.arrow_forward_ios,
+                    color: Colors.grey, size: 16),
+                onTap: () async {
+                  final shouldDelete = await showCustomDialog(
+                    context: context,
+                    title: '기록 삭제',
+                    content: '내가 저장한 선택과 성향들이 모두 지워져요.\n정말 삭제할까요?',
+                    cancelText: '취소',
+                    confirmText: '삭제',
+                  );
+
+                  if (shouldDelete == true) {
+                    debugPrint('삭제 진행 예정 (아직 구현 안 됨)');
+                  }
+                },
+              ),
+            ),
           ],
         ),
       ),
