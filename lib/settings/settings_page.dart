@@ -1,6 +1,8 @@
+import 'package:another_flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../auth/auth_provider.dart';
+import '../services/delete_user_data.dart';
 import 'record/record_page.dart';
 import '../widgets/custom_dialog.dart';
 
@@ -186,7 +188,33 @@ class SettingsPage extends StatelessWidget {
                   );
 
                   if (shouldDelete == true) {
-                    debugPrint('삭제 진행 예정 (아직 구현 안 됨)');
+                    try {
+                      await deleteUserData(userId: auth.userId!);
+
+                      Flushbar(
+                        message: "기록이 삭제되었습니다.",
+                        duration: const Duration(seconds: 2),
+                        backgroundColor: Colors.green,
+                        margin: const EdgeInsets.all(16),
+                        borderRadius: BorderRadius.circular(8),
+                        icon: const Icon(
+                          Icons.check_circle,
+                          color: Colors.white,
+                        ),
+                      ).show(context);
+                    } catch (e) {
+                      Flushbar(
+                        message: "삭제에 실패했어요. 다시 시도해주세요.",
+                        duration: const Duration(seconds: 2),
+                        backgroundColor: Colors.red,
+                        margin: const EdgeInsets.all(16),
+                        borderRadius: BorderRadius.circular(8),
+                        icon: const Icon(
+                          Icons.error_outline,
+                          color: Colors.white,
+                        ),
+                      ).show(context);
+                    }
                   }
                 },
               ),
