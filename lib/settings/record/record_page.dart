@@ -5,6 +5,7 @@ import 'package:collection/collection.dart';
 
 import '../../auth/auth_provider.dart';
 import '../../models/category_model.dart';
+import '../../widgets/error_message_box.dart';
 import 'record_detail_page.dart';
 import 'record_page_cubit.dart';
 import 'record_page_state.dart';
@@ -48,10 +49,7 @@ class _RecordView extends StatelessWidget {
 
           if (state.error != null) {
             return Center(
-              child: Text(
-                '에러: ${state.error}',
-                style: const TextStyle(color: Colors.red),
-              ),
+              child: ErrorMessageBox(message: state.error!),
             );
           }
 

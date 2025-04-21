@@ -4,6 +4,7 @@ import 'package:pie_chart/pie_chart.dart';
 
 import '../../auth/auth_provider.dart';
 import '../models/type_model.dart';
+import '../widgets/error_message_box.dart';
 import 'type_page_cubit.dart';
 import 'type_page_state.dart';
 
@@ -45,10 +46,7 @@ class _TypeView extends StatelessWidget {
 
           if (state.error != null) {
             return Center(
-              child: Text(
-                '에러: ${state.error}',
-                style: const TextStyle(color: Colors.red),
-              ),
+              child: ErrorMessageBox(message: state.error!),
             );
           }
 

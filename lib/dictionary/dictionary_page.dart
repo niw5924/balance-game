@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_card_swiper/flutter_card_swiper.dart';
 import '../models/type_model.dart';
 import '../auth/auth_provider.dart';
+import '../widgets/error_message_box.dart';
 import 'dictionary_page_cubit.dart';
 import 'dictionary_page_state.dart';
 
@@ -47,10 +48,7 @@ class _DictionaryView extends StatelessWidget {
 
               if (state.error != null) {
                 return Center(
-                  child: Text(
-                    '에러: ${state.error}',
-                    style: const TextStyle(color: Colors.red),
-                  ),
+                  child: ErrorMessageBox(message: state.error!),
                 );
               }
 
