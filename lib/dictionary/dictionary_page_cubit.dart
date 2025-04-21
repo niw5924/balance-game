@@ -7,7 +7,7 @@ class DictionaryPageCubit extends Cubit<DictionaryPageState> {
 
   Future<void> loadTypeCounts(String? userId) async {
     if (userId == null) {
-      emit(state.copyWith(isLoading: false));
+      emit(state.copyWith(isLoading: false, error: '로그인이 필요합니다.'));
       return;
     }
 

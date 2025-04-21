@@ -9,7 +9,6 @@ Future<bool?> showCustomDialog({
 }) {
   return showDialog<bool>(
     context: context,
-    barrierDismissible: false,
     builder: (context) {
       return Dialog(
         shape: RoundedRectangleBorder(

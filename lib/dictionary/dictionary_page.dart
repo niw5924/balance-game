@@ -88,46 +88,36 @@ class _DictionaryView extends StatelessWidget {
                           ),
                         ),
                         Expanded(
-                          child: auth.isLoggedIn
-                              ? Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Text(
-                                      type.name,
-                                      style: TextStyle(
-                                        fontSize: 24,
-                                        fontWeight: FontWeight.bold,
-                                        color: type.color,
-                                      ),
-                                    ),
-                                    const SizedBox(height: 8),
-                                    Text(
-                                      '+$count',
-                                      style: const TextStyle(
-                                        fontSize: 20,
-                                        color: Colors.deepPurple,
-                                      ),
-                                    ),
-                                    const SizedBox(height: 12),
-                                    Text(
-                                      type.description,
-                                      textAlign: TextAlign.center,
-                                      style: const TextStyle(
-                                        fontSize: 16,
-                                        color: Colors.black,
-                                      ),
-                                    ),
-                                  ],
-                                )
-                              : const Center(
-                                  child: Text(
-                                    '로그인이 필요합니다',
-                                    style: TextStyle(
-                                      fontSize: 18,
-                                      color: Colors.black,
-                                    ),
-                                  ),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                type.name,
+                                style: TextStyle(
+                                  fontSize: 24,
+                                  fontWeight: FontWeight.bold,
+                                  color: type.color,
                                 ),
+                              ),
+                              const SizedBox(height: 8),
+                              Text(
+                                '+$count',
+                                style: const TextStyle(
+                                  fontSize: 20,
+                                  color: Colors.deepPurple,
+                                ),
+                              ),
+                              const SizedBox(height: 12),
+                              Text(
+                                type.description,
+                                textAlign: TextAlign.center,
+                                style: const TextStyle(
+                                  fontSize: 16,
+                                  color: Colors.black,
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
                       ],
                     ),
