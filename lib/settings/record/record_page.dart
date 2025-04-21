@@ -5,6 +5,7 @@ import 'package:collection/collection.dart';
 
 import '../../auth/auth_provider.dart';
 import '../../models/category_model.dart';
+import '../../widgets/empty_message_box.dart';
 import '../../widgets/error_message_box.dart';
 import 'record_detail_page.dart';
 import 'record_page_cubit.dart';
@@ -54,11 +55,8 @@ class _RecordView extends StatelessWidget {
           }
 
           if (state.records.isEmpty) {
-            return const Center(
-              child: Text(
-                '기록이 없습니다.',
-                style: TextStyle(color: Colors.white),
-              ),
+            return Center(
+              child: EmptyMessageBox(message: '기록이 없습니다.'),
             );
           }
 

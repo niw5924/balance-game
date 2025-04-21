@@ -4,6 +4,7 @@ import 'package:pie_chart/pie_chart.dart';
 
 import '../../auth/auth_provider.dart';
 import '../models/type_model.dart';
+import '../widgets/empty_message_box.dart';
 import '../widgets/error_message_box.dart';
 import 'type_page_cubit.dart';
 import 'type_page_state.dart';
@@ -51,11 +52,8 @@ class _TypeView extends StatelessWidget {
           }
 
           if (state.typeCounts.isEmpty) {
-            return const Center(
-              child: Text(
-                '성향 데이터가 없습니다.',
-                style: TextStyle(color: Colors.white),
-              ),
+            return Center(
+              child: EmptyMessageBox(message: '성향 데이터가 없습니다.'),
             );
           }
 

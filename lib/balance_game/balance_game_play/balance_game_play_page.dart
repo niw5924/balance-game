@@ -10,6 +10,8 @@ import '../../../auth/auth_provider.dart';
 import '../../../services/submit_play_result.dart';
 import '../../../widgets/custom_dialog.dart';
 import '../../utils/share_text_builder.dart';
+import '../../widgets/empty_message_box.dart';
+import '../../widgets/error_message_box.dart';
 import '../../widgets/question_answer_card.dart';
 import 'balance_game_play_page_cubit.dart';
 import 'balance_game_play_page_state.dart';
@@ -97,19 +99,13 @@ class _BalanceGamePlayViewState extends State<_BalanceGamePlayView> {
 
               if (state.error != null) {
                 return Center(
-                  child: Text(
-                    '에러: ${state.error}',
-                    style: TextStyle(color: category.mainColor),
-                  ),
+                  child: ErrorMessageBox(message: state.error!),
                 );
               }
 
               if (state.questions.isEmpty) {
                 return Center(
-                  child: Text(
-                    '문제가 없습니다.',
-                    style: TextStyle(color: category.mainColor),
-                  ),
+                  child: EmptyMessageBox(message: '문제가 없습니다.'),
                 );
               }
 
