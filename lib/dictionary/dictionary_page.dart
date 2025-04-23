@@ -27,8 +27,6 @@ class _DictionaryView extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<DictionaryPageCubit, DictionaryPageState>(
       builder: (context, state) {
-        final auth = context.watch<AuthProvider>();
-
         return Scaffold(
           backgroundColor: const Color(0xFF101418),
           appBar: AppBar(
@@ -77,9 +75,7 @@ class _DictionaryView extends StatelessWidget {
                             topRight: Radius.circular(20),
                           ),
                           child: Image.asset(
-                            auth.isLoggedIn
-                                ? type.image
-                                : 'assets/images/type_not_logged_in.png',
+                            type.image,
                             height: 300,
                             width: double.infinity,
                             fit: BoxFit.cover,
