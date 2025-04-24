@@ -45,3 +45,7 @@ app.*.map.json
 /android/app/release
 
 .env
+
+key.properties
+*.jks
+/android/gradle.properties

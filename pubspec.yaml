@@ -37,7 +37,10 @@ dependencies:
   flutter_animated_button: ^2.0.4
   another_flushbar: ^1.12.30
   pie_chart: ^5.4.0
-  flutter_naver_login: ^2.0.0
+  flutter_naver_login:
+    git:
+      url: https://github.com/niw5924/flutter_naver_login.git
+      ref: master
   flutter_secure_storage: ^9.2.4
   provider: ^6.1.4
   collection: ^1.19.0
