@@ -42,10 +42,10 @@
             android:name="com.naver.sdk.clientName"
             android:value="@string/client_name" />
 
-        <!-- Google AdMob 앱 ID 설정 (테스트용) -->
+        <!-- Google AdMob 앱 ID 설정 (릴리즈) -->
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
-            android:value="ca-app-pub-3940256099942544~3347511713" />
+            android:value="ca-app-pub-5985963138132085~3097289244" />
     </application>
     <!-- Required to query activities that can process text, see:
          https://developer.android.com/training/package-visibility and

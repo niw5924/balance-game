@@ -44,7 +44,7 @@ class _BalanceGamePlayViewState extends State<_BalanceGamePlayView> {
   void initState() {
     super.initState();
     _bannerAd = BannerAd(
-      adUnitId: 'ca-app-pub-3940256099942544/6300978111',
+      adUnitId: 'ca-app-pub-5985963138132085/7509210921',
       size: AdSize.banner,
       request: const AdRequest(),
       listener: BannerAdListener(
