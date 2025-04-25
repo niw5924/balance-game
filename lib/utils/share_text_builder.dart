@@ -26,7 +26,8 @@ String buildResultShareText({
     buffer.writeln('');
   }
 
-  buffer.writeln('너도 해볼래? 👉 https://yourapp.link');
+  buffer.writeln(
+      '너도 해볼래? 👉 https://play.google.com/store/apps/details?id=com.niw.balance_game');
 
   return buffer.toString();
 }
