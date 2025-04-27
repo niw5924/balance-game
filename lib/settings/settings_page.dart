@@ -219,6 +219,53 @@ class SettingsPage extends StatelessWidget {
                 },
               ),
             ),
+            const SizedBox(height: 8),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Text(
+                  'Ver 1.0.0',
+                  style: TextStyle(color: Colors.grey),
+                ),
+                if (auth.isLoggedIn) ...[
+                  const SizedBox(width: 12),
+                  GestureDetector(
+                    onTap: () async {
+                      final shouldWithdraw = await showCustomDialog(
+                        context: context,
+                        title: '회원 탈퇴',
+                        content: '정말 탈퇴하시겠어요?\n모든 데이터가 삭제돼요.',
+                        cancelText: '취소',
+                        confirmText: '탈퇴',
+                      );
+                      if (shouldWithdraw == true) {
+                        await auth.withdraw();
+
+                        Flushbar(
+                          message: "회원 탈퇴가 완료되었습니다.",
+                          duration: const Duration(seconds: 2),
+                          backgroundColor: Colors.green,
+                          margin: const EdgeInsets.all(16),
+                          borderRadius: BorderRadius.circular(8),
+                          icon: const Icon(
+                            Icons.check_circle,
+                            color: Colors.white,
+                          ),
+                        ).show(context);
+                      }
+                    },
+                    child: const Text(
+                      '탈퇴하기',
+                      style: TextStyle(
+                        color: Colors.grey,
+                        decoration: TextDecoration.underline,
+                        decorationColor: Colors.grey,
+                      ),
+                    ),
+                  ),
+                ],
+              ],
+            ),
           ],
         ),
       ),

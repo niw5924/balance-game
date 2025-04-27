@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_naver_login/flutter_naver_login.dart';
+import '../services/delete_user_data.dart';
 import 'storage_helper.dart';
 
 enum SocialLoginMethod { naver, google, kakao }
@@ -92,6 +93,26 @@ class AuthProvider extends ChangeNotifier {
   }
 
   Future<void> logout() async {
+    switch (currentLoginMethod) {
+      case SocialLoginMethod.naver:
+        await FlutterNaverLogin.logOutAndDeleteToken();
+        await StorageHelper.clearToken(SocialLoginMethod.naver);
+        break;
+      case SocialLoginMethod.google:
+        break;
+      case SocialLoginMethod.kakao:
+        break;
+      case null:
+        break;
+    }
+
+    await StorageHelper.clearSavedLoginMethod();
+    _clearUser();
+  }
+
+  Future<void> withdraw() async {
+    await deleteUserData(userId: userId!);
+
     switch (currentLoginMethod) {
       case SocialLoginMethod.naver:
         await FlutterNaverLogin.logOutAndDeleteToken();
