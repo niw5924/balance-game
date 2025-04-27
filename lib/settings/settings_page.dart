@@ -77,9 +77,31 @@ class SettingsPage extends StatelessWidget {
                         );
                         if (shouldLogout == true) {
                           await auth.logout();
+                          Flushbar(
+                            message: "로그아웃 되었습니다.",
+                            duration: const Duration(seconds: 2),
+                            backgroundColor: Colors.green,
+                            margin: const EdgeInsets.all(16),
+                            borderRadius: BorderRadius.circular(8),
+                            icon: const Icon(
+                              Icons.check_circle,
+                              color: Colors.white,
+                            ),
+                          ).show(context);
                         }
                       } else {
                         await auth.loginWithNaver();
+                        Flushbar(
+                          message: "${auth.userName}님 환영합니다!",
+                          duration: const Duration(seconds: 2),
+                          backgroundColor: Colors.green,
+                          margin: const EdgeInsets.all(16),
+                          borderRadius: BorderRadius.circular(8),
+                          icon: const Icon(
+                            Icons.person,
+                            color: Colors.white,
+                          ),
+                        ).show(context);
                       }
                     },
                     child: Container(
@@ -224,7 +246,7 @@ class SettingsPage extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 const Text(
-                  'Ver 1.0.0',
+                  'Ver 1.0.1',
                   style: TextStyle(color: Colors.grey),
                 ),
                 if (auth.isLoggedIn) ...[
