@@ -52,6 +52,7 @@ class BalanceGamePage extends StatelessWidget {
                       );
                     },
                     child: Container(
+                      padding: const EdgeInsets.all(8),
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(16),
                         gradient: LinearGradient(
@@ -86,6 +87,8 @@ class BalanceGamePage extends StatelessWidget {
                               fontWeight: FontWeight.w500,
                               color: Colors.white,
                             ),
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
                           ),
                         ],
                       ),
