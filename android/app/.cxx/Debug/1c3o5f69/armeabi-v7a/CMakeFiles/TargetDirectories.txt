@@ -1,2 +1,0 @@
-C:/Users/niw59/balance_game/android/app/.cxx/Debug/1c3o5f69/armeabi-v7a/CMakeFiles/edit_cache.dir
-C:/Users/niw59/balance_game/android/app/.cxx/Debug/1c3o5f69/armeabi-v7a/CMakeFiles/rebuild_cache.dir

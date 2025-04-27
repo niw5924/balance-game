@@ -1,2 +1,0 @@
-C:/Users/niw59/balance_game/android/app/.cxx/RelWithDebInfo/w1b364m4/x86_64/CMakeFiles/edit_cache.dir
-C:/Users/niw59/balance_game/android/app/.cxx/RelWithDebInfo/w1b364m4/x86_64/CMakeFiles/rebuild_cache.dir
