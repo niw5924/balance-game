@@ -16,7 +16,7 @@ class RecordPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final userId = context.read<AuthProvider>().userId;
+    final userId = context.read<AuthProvider>().userId!;
 
     return BlocProvider(
       create: (_) => RecordPageCubit()..loadRecords(userId),

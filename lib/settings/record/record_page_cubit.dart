@@ -5,12 +5,7 @@ import 'record_page_state.dart';
 class RecordPageCubit extends Cubit<RecordPageState> {
   RecordPageCubit() : super(const RecordPageState());
 
-  Future<void> loadRecords(String? userId) async {
-    if (userId == null) {
-      emit(state.copyWith(isLoading: false, error: '로그인이 필요합니다.'));
-      return;
-    }
-
+  Future<void> loadRecords(String userId) async {
     emit(state.copyWith(isLoading: true, error: null));
     try {
       final records = await fetchUserPlayRecords(userId);
