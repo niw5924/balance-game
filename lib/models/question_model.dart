@@ -16,11 +16,13 @@ class Option {
 }
 
 class Question {
+  final int id;
   final String category;
   final String question;
   final List<Option> options;
 
   Question({
+    required this.id,
     required this.category,
     required this.question,
     required this.options,
@@ -31,6 +33,7 @@ class Question {
         (json['options'] as List).map((e) => Option.fromJson(e)).toList();
 
     return Question(
+      id: json['id'],
       category: json['category'],
       question: json['question'],
       options: options,
