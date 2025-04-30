@@ -42,7 +42,8 @@ class _RecordDetailPageState extends State<RecordDetailPage> {
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return Center(
-                child: CircularProgressIndicator(color: category.mainColor));
+              child: CircularProgressIndicator(color: category.mainColor),
+            );
           }
 
           if (snapshot.hasError) {
@@ -50,8 +51,7 @@ class _RecordDetailPageState extends State<RecordDetailPage> {
           }
 
           final questions = snapshot.data!;
-          final selectedAnswers =
-              widget.record.selectedAnswers.entries.toList();
+          final selectedAnswersRaw = widget.record.selectedAnswersRaw;
 
           return SingleChildScrollView(
             child: Padding(
@@ -63,15 +63,22 @@ class _RecordDetailPageState extends State<RecordDetailPage> {
                   ListView.separated(
                     shrinkWrap: true,
                     physics: const NeverScrollableScrollPhysics(),
-                    itemCount: selectedAnswers.length,
+                    itemCount: selectedAnswersRaw.length,
                     separatorBuilder: (_, __) => const SizedBox(height: 12),
                     itemBuilder: (context, index) {
-                      final entry = selectedAnswers[index];
+                      final entry = selectedAnswersRaw[index];
+                      final questionId = int.parse(entry.keys.first);
+                      final selectedIndex = entry.values.first;
+
+                      final question = questions.firstWhere(
+                        (q) => q.id == questionId,
+                      );
+
                       return QuestionAnswerCard(
                         category: category,
-                        questionIndex: int.parse(entry.key),
-                        question: questions[int.parse(entry.key)],
-                        selectedOptionIndex: entry.value,
+                        questionIndex: index,
+                        question: question,
+                        selectedOptionIndex: selectedIndex,
                       );
                     },
                   ),

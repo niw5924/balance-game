@@ -6,7 +6,8 @@ import '../models/question_model.dart';
 final String baseUrl = dotenv.env['BASE_URL']!;
 
 Future<List<Question>> fetchQuestionsByCategory(String category) async {
-  final response = await http.get(Uri.parse('$baseUrl/api/questions'));
+  final response =
+      await http.get(Uri.parse('$baseUrl/api/questions/$category'));
 
   if (response.statusCode != 200) {
     throw Exception(response.body);
@@ -14,10 +15,5 @@ Future<List<Question>> fetchQuestionsByCategory(String category) async {
 
   final data = json.decode(response.body) as List;
 
-  final List<Question> questions = data
-      .map((json) => Question.fromJson(json))
-      .where((q) => q.category == category)
-      .toList();
-
-  return questions;
+  return data.map((json) => Question.fromJson(json)).toList();
 }

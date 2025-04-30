@@ -7,7 +7,7 @@ final String baseUrl = dotenv.env['BASE_URL']!;
 Future<void> submitPlayResult({
   required String userId,
   required String category,
-  required Map<String, int> selectedAnswers,
+  required List<Map<String, int>> selectedAnswers,
   required Map<String, int> typeCounts,
 }) async {
   final response = await http.post(

@@ -52,10 +52,8 @@ class _BalanceGamePlayViewState extends State<_BalanceGamePlayView> {
           setState(() {
             _isAdLoaded = true;
           });
-          debugPrint('광고 로드 완료');
         },
         onAdFailedToLoad: (ad, error) {
-          debugPrint('광고 로드 실패: ${error.message}');
           ad.dispose();
         },
       ),
@@ -112,9 +110,9 @@ class _BalanceGamePlayViewState extends State<_BalanceGamePlayView> {
               if (state.status == BalanceGamePlayStatus.completed) {
                 final typeCountMap = <String, int>{};
                 for (int i = 0; i < state.questions.length; i++) {
-                  final selectedIndex = state.selectedAnswers[i]!;
-                  final selectedOption =
-                      state.questions[i].options[selectedIndex];
+                  final question = state.questions[i];
+                  final selectedIndex = state.selectedAnswers[question.id]!;
+                  final selectedOption = question.options[selectedIndex];
                   final type = selectedOption.type;
                   typeCountMap[type] = (typeCountMap[type] ?? 0) + 1;
                 }
@@ -132,10 +130,9 @@ class _BalanceGamePlayViewState extends State<_BalanceGamePlayView> {
                         Text(
                           '밸런스 게임 완료!',
                           style: TextStyle(
-                            fontSize: 24,
-                            fontWeight: FontWeight.bold,
-                            color: category.mainColor,
-                          ),
+                              fontSize: 24,
+                              fontWeight: FontWeight.bold,
+                              color: category.mainColor),
                         ),
                         const SizedBox(height: 12),
                         Row(
@@ -153,8 +150,7 @@ class _BalanceGamePlayViewState extends State<_BalanceGamePlayView> {
                                 backgroundColor: category.mainColor,
                                 foregroundColor: Colors.white,
                                 shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(20),
-                                ),
+                                    borderRadius: BorderRadius.circular(20)),
                                 padding: const EdgeInsets.symmetric(
                                     horizontal: 20, vertical: 12),
                               ),
@@ -183,10 +179,8 @@ class _BalanceGamePlayViewState extends State<_BalanceGamePlayView> {
                                         backgroundColor: category.mainColor,
                                         margin: const EdgeInsets.all(16),
                                         borderRadius: BorderRadius.circular(8),
-                                        icon: const Icon(
-                                          Icons.person,
-                                          color: Colors.white,
-                                        ),
+                                        icon: const Icon(Icons.person,
+                                            color: Colors.white),
                                       ).show(context);
                                     }
                                   }
@@ -194,11 +188,14 @@ class _BalanceGamePlayViewState extends State<_BalanceGamePlayView> {
                                   return;
                                 }
 
-                                final selectedAnswers =
-                                    state.selectedAnswers.map(
-                                  (key, value) =>
-                                      MapEntry(key.toString(), value),
-                                );
+                                final selectedAnswers = state.questions
+                                    .where((q) =>
+                                        state.selectedAnswers.containsKey(q.id))
+                                    .map((q) => {
+                                          q.id.toString():
+                                              state.selectedAnswers[q.id]!
+                                        })
+                                    .toList();
 
                                 try {
                                   await submitPlayResult(
@@ -214,10 +211,8 @@ class _BalanceGamePlayViewState extends State<_BalanceGamePlayView> {
                                     backgroundColor: Colors.green,
                                     margin: const EdgeInsets.all(16),
                                     borderRadius: BorderRadius.circular(8),
-                                    icon: const Icon(
-                                      Icons.check_circle_rounded,
-                                      color: Colors.white,
-                                    ),
+                                    icon: const Icon(Icons.check_circle_rounded,
+                                        color: Colors.white),
                                   ).show(context);
                                 } catch (e) {
                                   Flushbar(
@@ -226,10 +221,8 @@ class _BalanceGamePlayViewState extends State<_BalanceGamePlayView> {
                                     backgroundColor: Colors.black,
                                     margin: const EdgeInsets.all(16),
                                     borderRadius: BorderRadius.circular(8),
-                                    icon: const Icon(
-                                      Icons.error,
-                                      color: Colors.red,
-                                    ),
+                                    icon: const Icon(Icons.error,
+                                        color: Colors.red),
                                   ).show(context);
                                 }
                               },
@@ -237,8 +230,7 @@ class _BalanceGamePlayViewState extends State<_BalanceGamePlayView> {
                                 backgroundColor: Colors.white,
                                 foregroundColor: category.mainColor,
                                 shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(20),
-                                ),
+                                    borderRadius: BorderRadius.circular(20)),
                                 padding: const EdgeInsets.symmetric(
                                     horizontal: 20, vertical: 12),
                               ),
@@ -258,8 +250,7 @@ class _BalanceGamePlayViewState extends State<_BalanceGamePlayView> {
                                 backgroundColor: Colors.white,
                                 foregroundColor: category.mainColor,
                                 shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(20),
-                                ),
+                                    borderRadius: BorderRadius.circular(20)),
                                 padding: const EdgeInsets.symmetric(
                                     horizontal: 20, vertical: 12),
                               ),
@@ -275,12 +266,13 @@ class _BalanceGamePlayViewState extends State<_BalanceGamePlayView> {
                           separatorBuilder: (_, __) =>
                               const SizedBox(height: 12),
                           itemBuilder: (context, index) {
+                            final question = state.questions[index];
                             return QuestionAnswerCard(
                               category: category,
                               questionIndex: index,
-                              question: state.questions[index],
+                              question: question,
                               selectedOptionIndex:
-                                  state.selectedAnswers[index]!,
+                                  state.selectedAnswers[question.id]!,
                             );
                           },
                         ),
@@ -290,9 +282,8 @@ class _BalanceGamePlayViewState extends State<_BalanceGamePlayView> {
                 );
               }
 
-              /// inProgress
               final currentQuestion = state.questions[state.currentIndex];
-              final currentSelected = state.selectedAnswers[state.currentIndex];
+              final currentSelected = state.selectedAnswers[currentQuestion.id];
 
               return Padding(
                 padding:
@@ -303,19 +294,17 @@ class _BalanceGamePlayViewState extends State<_BalanceGamePlayView> {
                     Text(
                       '${state.currentIndex + 1} / ${state.questions.length}',
                       style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.w500,
-                        color: category.mainColor,
-                      ),
+                          fontSize: 20,
+                          fontWeight: FontWeight.w500,
+                          color: category.mainColor),
                     ),
                     const SizedBox(height: 12),
                     Text(
                       currentQuestion.question,
                       style: const TextStyle(
-                        fontSize: 24,
-                        color: Colors.black,
-                        fontWeight: FontWeight.w600,
-                      ),
+                          fontSize: 24,
+                          color: Colors.black,
+                          fontWeight: FontWeight.w600),
                       textAlign: TextAlign.center,
                     ),
                     const SizedBox(height: 40),
@@ -360,8 +349,7 @@ class _BalanceGamePlayViewState extends State<_BalanceGamePlayView> {
                               padding: const EdgeInsets.symmetric(
                                   horizontal: 40, vertical: 16),
                               shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(30),
-                              ),
+                                  borderRadius: BorderRadius.circular(30)),
                             ),
                             onPressed: () {
                               context
@@ -379,8 +367,7 @@ class _BalanceGamePlayViewState extends State<_BalanceGamePlayView> {
                             padding: const EdgeInsets.symmetric(
                                 horizontal: 40, vertical: 16),
                             shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(30),
-                            ),
+                                borderRadius: BorderRadius.circular(30)),
                           ),
                           onPressed: () {
                             if (currentSelected == null) {
@@ -390,14 +377,11 @@ class _BalanceGamePlayViewState extends State<_BalanceGamePlayView> {
                                 backgroundColor: Colors.black,
                                 margin: const EdgeInsets.all(16),
                                 borderRadius: BorderRadius.circular(8),
-                                icon: const Icon(
-                                  Icons.warning_amber_rounded,
-                                  color: Colors.red,
-                                ),
+                                icon: const Icon(Icons.warning_amber_rounded,
+                                    color: Colors.red),
                               ).show(context);
                               return;
                             }
-
                             context
                                 .read<BalanceGamePlayPageCubit>()
                                 .nextQuestion();
@@ -449,17 +433,12 @@ class _BalanceGamePlayViewState extends State<_BalanceGamePlayView> {
   Widget _buildVS() {
     return Container(
       padding: const EdgeInsets.all(16),
-      decoration: const BoxDecoration(
-        color: Colors.black,
-        shape: BoxShape.circle,
-      ),
+      decoration:
+          const BoxDecoration(color: Colors.black, shape: BoxShape.circle),
       child: const Text(
         'VS',
         style: TextStyle(
-          color: Colors.white,
-          fontWeight: FontWeight.bold,
-          fontSize: 16,
-        ),
+            color: Colors.white, fontWeight: FontWeight.bold, fontSize: 16),
       ),
     );
   }

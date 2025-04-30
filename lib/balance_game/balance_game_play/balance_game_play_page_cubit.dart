@@ -25,14 +25,14 @@ class BalanceGamePlayPageCubit extends Cubit<BalanceGamePlayPageState> {
   }
 
   void selectAnswer(int optionIndex) {
-    final currentIndex = state.currentIndex;
-    final currentSelected = state.selectedAnswers[currentIndex];
+    final questionId = state.questions[state.currentIndex].id;
+    final currentSelected = state.selectedAnswers[questionId];
 
     final updated = Map<int, int>.from(state.selectedAnswers);
     if (currentSelected == optionIndex) {
-      updated.remove(currentIndex);
+      updated.remove(questionId);
     } else {
-      updated[currentIndex] = optionIndex;
+      updated[questionId] = optionIndex;
     }
 
     emit(state.copyWith(selectedAnswers: updated));
