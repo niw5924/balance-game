@@ -11,9 +11,6 @@ class UserPlayRecordModel {
     required this.createdAt,
   });
 
-  Map<String, int> get selectedAnswersMap =>
-      {for (final e in selectedAnswersRaw) ...e};
-
   factory UserPlayRecordModel.fromJson(Map<String, dynamic> json) {
     return UserPlayRecordModel(
       id: json['id'],

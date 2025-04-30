@@ -3,7 +3,7 @@ import 'package:intl/intl.dart';
 import '../../models/user_play_record_model.dart';
 import '../../models/category_model.dart';
 import '../../models/question_model.dart';
-import '../../services/fetch_questions_by_category.dart';
+import '../../services/fetch_questions.dart';
 import '../../widgets/question_answer_card.dart';
 
 class RecordDetailPage extends StatefulWidget {
@@ -21,7 +21,10 @@ class _RecordDetailPageState extends State<RecordDetailPage> {
   @override
   void initState() {
     super.initState();
-    _questionsFuture = fetchQuestionsByCategory(widget.record.category);
+    final ids = widget.record.selectedAnswersRaw
+        .map((e) => int.parse(e.keys.first))
+        .toList();
+    _questionsFuture = fetchQuestionsByIds(ids);
   }
 
   @override
@@ -42,8 +45,7 @@ class _RecordDetailPageState extends State<RecordDetailPage> {
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return Center(
-              child: CircularProgressIndicator(color: category.mainColor),
-            );
+                child: CircularProgressIndicator(color: category.mainColor));
           }
 
           if (snapshot.hasError) {
@@ -70,9 +72,8 @@ class _RecordDetailPageState extends State<RecordDetailPage> {
                       final questionId = int.parse(entry.keys.first);
                       final selectedIndex = entry.values.first;
 
-                      final question = questions.firstWhere(
-                        (q) => q.id == questionId,
-                      );
+                      final question =
+                          questions.firstWhere((q) => q.id == questionId);
 
                       return QuestionAnswerCard(
                         category: category,

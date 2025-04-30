@@ -8,12 +8,24 @@ final String baseUrl = dotenv.env['BASE_URL']!;
 Future<List<Question>> fetchQuestionsByCategory(String category) async {
   final response =
       await http.get(Uri.parse('$baseUrl/api/questions/$category'));
-
   if (response.statusCode != 200) {
     throw Exception(response.body);
   }
 
   final data = json.decode(response.body) as List;
+  return data.map((e) => Question.fromJson(e)).toList();
+}
 
-  return data.map((json) => Question.fromJson(json)).toList();
+Future<List<Question>> fetchQuestionsByIds(List<int> ids) async {
+  final response = await http.post(
+    Uri.parse('$baseUrl/api/questions/by_ids'),
+    headers: {'Content-Type': 'application/json'},
+    body: jsonEncode({'ids': ids}),
+  );
+  if (response.statusCode != 200) {
+    throw Exception(response.body);
+  }
+
+  final data = json.decode(response.body) as List;
+  return data.map((e) => Question.fromJson(e)).toList();
 }
