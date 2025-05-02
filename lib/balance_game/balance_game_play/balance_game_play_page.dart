@@ -189,8 +189,6 @@ class _BalanceGamePlayViewState extends State<_BalanceGamePlayView> {
                                 }
 
                                 final selectedAnswers = state.questions
-                                    .where((q) =>
-                                        state.selectedAnswers.containsKey(q.id))
                                     .map((q) => {
                                           q.id.toString():
                                               state.selectedAnswers[q.id]!

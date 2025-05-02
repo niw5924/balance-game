@@ -21,10 +21,10 @@ class _RecordDetailPageState extends State<RecordDetailPage> {
   @override
   void initState() {
     super.initState();
-    final ids = widget.record.selectedAnswersRaw
+    final questionIds = widget.record.selectedAnswers
         .map((e) => int.parse(e.keys.first))
         .toList();
-    _questionsFuture = fetchQuestionsByIds(ids);
+    _questionsFuture = fetchQuestionsByQuestionIds(questionIds);
   }
 
   @override
@@ -45,7 +45,8 @@ class _RecordDetailPageState extends State<RecordDetailPage> {
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return Center(
-                child: CircularProgressIndicator(color: category.mainColor));
+              child: CircularProgressIndicator(color: category.mainColor),
+            );
           }
 
           if (snapshot.hasError) {
@@ -53,7 +54,7 @@ class _RecordDetailPageState extends State<RecordDetailPage> {
           }
 
           final questions = snapshot.data!;
-          final selectedAnswersRaw = widget.record.selectedAnswersRaw;
+          final selectedAnswers = widget.record.selectedAnswers;
 
           return SingleChildScrollView(
             child: Padding(
@@ -65,10 +66,10 @@ class _RecordDetailPageState extends State<RecordDetailPage> {
                   ListView.separated(
                     shrinkWrap: true,
                     physics: const NeverScrollableScrollPhysics(),
-                    itemCount: selectedAnswersRaw.length,
+                    itemCount: selectedAnswers.length,
                     separatorBuilder: (_, __) => const SizedBox(height: 12),
                     itemBuilder: (context, index) {
-                      final entry = selectedAnswersRaw[index];
+                      final entry = selectedAnswers[index];
                       final questionId = int.parse(entry.keys.first);
                       final selectedIndex = entry.values.first;
 

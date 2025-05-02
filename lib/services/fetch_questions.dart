@@ -5,9 +5,11 @@ import '../models/question_model.dart';
 
 final String baseUrl = dotenv.env['BASE_URL']!;
 
+/// 카테고리 기반 질문 가져오기(서버에서 랜덤 10개)
 Future<List<Question>> fetchQuestionsByCategory(String category) async {
   final response =
       await http.get(Uri.parse('$baseUrl/api/questions/$category'));
+
   if (response.statusCode != 200) {
     throw Exception(response.body);
   }
@@ -16,12 +18,15 @@ Future<List<Question>> fetchQuestionsByCategory(String category) async {
   return data.map((e) => Question.fromJson(e)).toList();
 }
 
-Future<List<Question>> fetchQuestionsByIds(List<int> ids) async {
+/// 질문 ID 리스트로 질문들 가져오기
+Future<List<Question>> fetchQuestionsByQuestionIds(
+    List<int> questionIds) async {
   final response = await http.post(
-    Uri.parse('$baseUrl/api/questions/by_ids'),
+    Uri.parse('$baseUrl/api/questions/questionIds'),
     headers: {'Content-Type': 'application/json'},
-    body: jsonEncode({'ids': ids}),
+    body: jsonEncode({'questionIds': questionIds}),
   );
+
   if (response.statusCode != 200) {
     throw Exception(response.body);
   }
