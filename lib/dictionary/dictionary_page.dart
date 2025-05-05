@@ -32,11 +32,26 @@ class _DictionaryView extends StatelessWidget {
           appBar: AppBar(
             backgroundColor: const Color(0xFF1A1F24),
             title: Text(
-              '${state.currentIndex + 1} / ${typeList.length}',
+              state.viewMode == DictionaryViewMode.card
+                  ? '${state.currentIndex + 1} / ${typeList.length}'
+                  : '한눈에 보기',
               style: const TextStyle(color: Colors.white),
               textAlign: TextAlign.center,
             ),
             centerTitle: true,
+            actions: [
+              IconButton(
+                icon: Icon(
+                  state.viewMode == DictionaryViewMode.grid
+                      ? Icons.style
+                      : Icons.grid_view,
+                  color: Colors.white,
+                ),
+                onPressed: () {
+                  context.read<DictionaryPageCubit>().toggleViewMode();
+                },
+              ),
+            ],
           ),
           body: Builder(
             builder: (_) {
@@ -50,74 +65,127 @@ class _DictionaryView extends StatelessWidget {
                 );
               }
 
-              return CardSwiper(
-                cardsCount: typeList.length,
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 40, vertical: 48),
-                onSwipe: (prev, next, direction) {
-                  context.read<DictionaryPageCubit>().updateIndex(next!);
-                  return true;
-                },
-                cardBuilder: (context, index, percentX, percentY) {
-                  final type = typeList[index];
-                  final count = state.typeCounts[type.name] ?? 0;
+              switch (state.viewMode) {
+                case DictionaryViewMode.grid:
+                  return GridView.builder(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 20, vertical: 24),
+                    gridDelegate:
+                        const SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 4,
+                      mainAxisSpacing: 12,
+                      crossAxisSpacing: 12,
+                      childAspectRatio: 0.8,
+                    ),
+                    itemCount: typeList.length,
+                    itemBuilder: (context, index) {
+                      final type = typeList[index];
+                      final count = state.typeCounts[type.name] ?? 0;
 
-                  return Container(
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(20),
-                    ),
-                    child: Column(
-                      children: [
-                        ClipRRect(
-                          borderRadius: const BorderRadius.only(
-                            topLeft: Radius.circular(20),
-                            topRight: Radius.circular(20),
-                          ),
-                          child: Image.asset(
-                            type.image,
-                            height: 300,
-                            width: double.infinity,
-                            fit: BoxFit.cover,
-                          ),
+                      return Container(
+                        padding: const EdgeInsets.all(2),
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(12),
+                          border: Border.all(color: type.color, width: 2),
                         ),
-                        Expanded(
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(
-                                type.name,
-                                style: TextStyle(
-                                  fontSize: 24,
-                                  fontWeight: FontWeight.bold,
-                                  color: type.color,
-                                ),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              type.name,
+                              style: TextStyle(
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold,
+                                color: type.color,
                               ),
-                              const SizedBox(height: 8),
-                              Text(
-                                '+$count',
-                                style: const TextStyle(
-                                  fontSize: 20,
-                                  color: Colors.deepPurple,
-                                ),
+                              textAlign: TextAlign.center,
+                            ),
+                            const SizedBox(height: 4),
+                            Text(
+                              '+$count',
+                              style: const TextStyle(
+                                fontSize: 16,
+                                color: Colors.deepPurple,
                               ),
-                              const SizedBox(height: 12),
-                              Text(
-                                type.description,
-                                textAlign: TextAlign.center,
-                                style: const TextStyle(
-                                  fontSize: 16,
-                                  color: Colors.black,
-                                ),
-                              ),
-                            ],
-                          ),
+                            ),
+                          ],
                         ),
-                      ],
-                    ),
+                      );
+                    },
                   );
-                },
-              );
+
+                case DictionaryViewMode.card:
+                  return CardSwiper(
+                    cardsCount: typeList.length,
+                    initialIndex: state.currentIndex,
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 40, vertical: 48),
+                    onSwipe: (prev, next, direction) {
+                      context.read<DictionaryPageCubit>().updateIndex(next!);
+                      return true;
+                    },
+                    cardBuilder: (context, index, percentX, percentY) {
+                      final type = typeList[index];
+                      final count = state.typeCounts[type.name] ?? 0;
+
+                      return Container(
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                        child: Column(
+                          children: [
+                            ClipRRect(
+                              borderRadius: const BorderRadius.only(
+                                topLeft: Radius.circular(20),
+                                topRight: Radius.circular(20),
+                              ),
+                              child: Image.asset(
+                                type.image,
+                                height: 300,
+                                width: double.infinity,
+                                fit: BoxFit.cover,
+                              ),
+                            ),
+                            Expanded(
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    type.name,
+                                    style: TextStyle(
+                                      fontSize: 24,
+                                      fontWeight: FontWeight.bold,
+                                      color: type.color,
+                                    ),
+                                  ),
+                                  const SizedBox(height: 8),
+                                  Text(
+                                    '+$count',
+                                    style: const TextStyle(
+                                      fontSize: 20,
+                                      color: Colors.deepPurple,
+                                    ),
+                                  ),
+                                  const SizedBox(height: 12),
+                                  Text(
+                                    type.description,
+                                    textAlign: TextAlign.center,
+                                    style: const TextStyle(
+                                      fontSize: 16,
+                                      color: Colors.black,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      );
+                    },
+                  );
+              }
             },
           ),
         );

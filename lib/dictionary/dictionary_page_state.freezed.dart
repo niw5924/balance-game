@@ -19,6 +19,7 @@ mixin _$DictionaryPageState {
   String? get error;
   int get currentIndex;
   Map<String, int> get typeCounts;
+  DictionaryViewMode get viewMode;
 
   /// Create a copy of DictionaryPageState
   /// with the given fields replaced by the non-null parameter values.
@@ -39,16 +40,18 @@ mixin _$DictionaryPageState {
             (identical(other.currentIndex, currentIndex) ||
                 other.currentIndex == currentIndex) &&
             const DeepCollectionEquality()
-                .equals(other.typeCounts, typeCounts));
+                .equals(other.typeCounts, typeCounts) &&
+            (identical(other.viewMode, viewMode) ||
+                other.viewMode == viewMode));
   }
 
   @override
   int get hashCode => Object.hash(runtimeType, isLoading, error, currentIndex,
-      const DeepCollectionEquality().hash(typeCounts));
+      const DeepCollectionEquality().hash(typeCounts), viewMode);
 
   @override
   String toString() {
-    return 'DictionaryPageState(isLoading: $isLoading, error: $error, currentIndex: $currentIndex, typeCounts: $typeCounts)';
+    return 'DictionaryPageState(isLoading: $isLoading, error: $error, currentIndex: $currentIndex, typeCounts: $typeCounts, viewMode: $viewMode)';
   }
 }
 
@@ -62,7 +65,8 @@ abstract mixin class $DictionaryPageStateCopyWith<$Res> {
       {bool isLoading,
       String? error,
       int currentIndex,
-      Map<String, int> typeCounts});
+      Map<String, int> typeCounts,
+      DictionaryViewMode viewMode});
 }
 
 /// @nodoc
@@ -82,6 +86,7 @@ class _$DictionaryPageStateCopyWithImpl<$Res>
     Object? error = freezed,
     Object? currentIndex = null,
     Object? typeCounts = null,
+    Object? viewMode = null,
   }) {
     return _then(_self.copyWith(
       isLoading: null == isLoading
@@ -100,6 +105,10 @@ class _$DictionaryPageStateCopyWithImpl<$Res>
           ? _self.typeCounts
           : typeCounts // ignore: cast_nullable_to_non_nullable
               as Map<String, int>,
+      viewMode: null == viewMode
+          ? _self.viewMode
+          : viewMode // ignore: cast_nullable_to_non_nullable
+              as DictionaryViewMode,
     ));
   }
 }
@@ -111,7 +120,8 @@ class _DictionaryPageState implements DictionaryPageState {
       {this.isLoading = true,
       this.error,
       this.currentIndex = 0,
-      final Map<String, int> typeCounts = const {}})
+      final Map<String, int> typeCounts = const {},
+      this.viewMode = DictionaryViewMode.card})
       : _typeCounts = typeCounts;
 
   @override
@@ -130,6 +140,10 @@ class _DictionaryPageState implements DictionaryPageState {
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableMapView(_typeCounts);
   }
+
+  @override
+  @JsonKey()
+  final DictionaryViewMode viewMode;
 
   /// Create a copy of DictionaryPageState
   /// with the given fields replaced by the non-null parameter values.
@@ -151,16 +165,18 @@ class _DictionaryPageState implements DictionaryPageState {
             (identical(other.currentIndex, currentIndex) ||
                 other.currentIndex == currentIndex) &&
             const DeepCollectionEquality()
-                .equals(other._typeCounts, _typeCounts));
+                .equals(other._typeCounts, _typeCounts) &&
+            (identical(other.viewMode, viewMode) ||
+                other.viewMode == viewMode));
   }
 
   @override
   int get hashCode => Object.hash(runtimeType, isLoading, error, currentIndex,
-      const DeepCollectionEquality().hash(_typeCounts));
+      const DeepCollectionEquality().hash(_typeCounts), viewMode);
 
   @override
   String toString() {
-    return 'DictionaryPageState(isLoading: $isLoading, error: $error, currentIndex: $currentIndex, typeCounts: $typeCounts)';
+    return 'DictionaryPageState(isLoading: $isLoading, error: $error, currentIndex: $currentIndex, typeCounts: $typeCounts, viewMode: $viewMode)';
   }
 }
 
@@ -176,7 +192,8 @@ abstract mixin class _$DictionaryPageStateCopyWith<$Res>
       {bool isLoading,
       String? error,
       int currentIndex,
-      Map<String, int> typeCounts});
+      Map<String, int> typeCounts,
+      DictionaryViewMode viewMode});
 }
 
 /// @nodoc
@@ -196,6 +213,7 @@ class __$DictionaryPageStateCopyWithImpl<$Res>
     Object? error = freezed,
     Object? currentIndex = null,
     Object? typeCounts = null,
+    Object? viewMode = null,
   }) {
     return _then(_DictionaryPageState(
       isLoading: null == isLoading
@@ -214,6 +232,10 @@ class __$DictionaryPageStateCopyWithImpl<$Res>
           ? _self._typeCounts
           : typeCounts // ignore: cast_nullable_to_non_nullable
               as Map<String, int>,
+      viewMode: null == viewMode
+          ? _self.viewMode
+          : viewMode // ignore: cast_nullable_to_non_nullable
+              as DictionaryViewMode,
     ));
   }
 }

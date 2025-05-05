@@ -298,7 +298,7 @@ class _SettingsPageState extends State<SettingsPage> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 const Text(
-                  'Ver 1.1.1',
+                  'Ver 1.2.0',
                   style: TextStyle(color: Colors.grey),
                 ),
                 if (auth.isLoggedIn) ...[

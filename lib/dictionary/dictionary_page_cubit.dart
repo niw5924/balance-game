@@ -20,6 +20,14 @@ class DictionaryPageCubit extends Cubit<DictionaryPageState> {
     }
   }
 
+  void toggleViewMode() {
+    final newMode = state.viewMode == DictionaryViewMode.card
+        ? DictionaryViewMode.grid
+        : DictionaryViewMode.card;
+
+    emit(state.copyWith(viewMode: newMode));
+  }
+
   void updateIndex(int newIndex) {
     emit(state.copyWith(currentIndex: newIndex));
   }
