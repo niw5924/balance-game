@@ -1,16 +1,43 @@
-# balance_game
+# 이저도감 🎮
 
-A new Flutter project.
+**이저도감**은 극한의 밸런스 게임으로 나를 탐구하고, 도감과 차트로 나의 심리 성향을 알아보는 심리 유형 도감 앱입니다.  
+총 5가지 카테고리의 게임을 플레이하고, **20가지 성향 유형 중 나의 분포를 기록하고 분석**할 수 있습니다.
 
-## Getting Started
+🔗 **[Play 스토어](https://play.google.com/store/apps/details?id=com.niw.balance_game)**  
+🔗 **[백엔드 API GitHub](https://github.com/niw5924/balance-game-api)**
 
-This project is a starting point for a Flutter application.
+## 💡 개발 배경
 
-A few resources to get you started if this is your first Flutter project:
+**극과 극의 선택지 중 하나를 선택하는 밸런스 게임을 통해, 그 선택지를 기반으로 나의 성향을 분석할 수 있다면 재미있지 않을까?**  
+이러한 생각에서 출발해,  
+**단순한 선택 게임 형식을 통해 심리적 성향을 시각적으로 기록하고 공유할 수 있는 앱**을 만들고자 했고,  
+그렇게 **이저도감**을 기획하고 개발하게 되었습니다.
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+## ⏳ 개발 기간
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+- **2024년 3월 ~ 현재 (출시 중)**
+
+## 📌 주요 기능
+
+✅ **밸런스 게임**  
+총 5가지 테마(🔥 19금, 🤢 혐오, 🧊 극한, 🤯 혼란, 😳 망신)에서 극단적인 두 선택지 중 하나를 선택하는 형식으로 진행됩니다.
+
+✅ **성향 분석 및 도감 기록**  
+게임 결과를 저장하면 선택한 답변에 따라 특정 성향 유형이 하나씩 기록되며, 도감에서 각 성향의 획득 수를 누적하여 확인할 수 있습니다.
+
+✅ **성향 차트 제공**  
+지금까지 기록된 성향 데이터를 기반으로 20가지 성향 분포를 원형 차트로 시각화하여 보여줍니다.
+
+✅ **결과 공유 기능**  
+게임 완료 후, 내가 선택한 내용과 결과를 텍스트 형태로 친구들과 공유할 수 있습니다.
+
+## 🛠 Skills
+
+✅ **Flutter, Dart**  
+✅ **MVU (Cubit, State, Freezed)**  
+✅ **provider**  
+✅ **http**  
+✅ **flutter_naver_login**  
+✅ **flutter_secure_storage**  
+✅ **google_mobile_ads**  
+✅ **share_plus**
