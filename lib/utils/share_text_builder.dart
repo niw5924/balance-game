@@ -12,9 +12,7 @@ String buildResultShareText({
 
   for (int i = 0; i < questions.length; i++) {
     final question = questions[i];
-    final selectedIndex = selectedAnswers[i];
-    if (selectedIndex == null) continue;
-
+    final selectedIndex = selectedAnswers[question.id];
     final options = question.options;
 
     buffer.writeln('Q${i + 1}. ${question.question}');
@@ -27,7 +25,8 @@ String buildResultShareText({
   }
 
   buffer.writeln(
-      '너도 해볼래? 👉 https://play.google.com/store/apps/details?id=com.niw.balance_game');
+    '너도 해볼래? 👉 https://play.google.com/store/apps/details?id=com.niw.balance_game',
+  );
 
   return buffer.toString();
 }
