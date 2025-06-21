@@ -16,7 +16,7 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
 # In Windows, build-name is used as the major, minor, and patch parts
 # of the product and file versions while build-number is used as the build suffix.
-version: 1.2.2+12
+version: 1.2.3+13
 
 environment:
   sdk: ^3.6.0
@@ -37,10 +37,7 @@ dependencies:
   flutter_animated_button: ^2.0.4
   another_flushbar: ^1.12.30
   pie_chart: ^5.4.0
-  flutter_naver_login:
-    git:
-      url: https://github.com/niw5924/flutter_naver_login.git
-      ref: master
+  flutter_naver_login: ^2.1.1
   flutter_secure_storage: ^9.2.4
   provider: ^6.1.4
   collection: ^1.19.0

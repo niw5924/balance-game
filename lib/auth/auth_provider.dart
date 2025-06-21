@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_naver_login/flutter_naver_login.dart';
+import 'package:flutter_naver_login/interface/types/naver_login_status.dart';
 import '../services/delete_user_data.dart';
 import 'storage_helper.dart';
 
@@ -52,14 +53,20 @@ class AuthProvider extends ChangeNotifier {
 
       switch (savedLoginMethod) {
         case SocialLoginMethod.naver:
-          final naverToken = await FlutterNaverLogin.currentAccessToken;
+          final naverToken = await FlutterNaverLogin.getCurrentAccessToken();
           debugPrint(naverToken.accessToken);
           if (naverToken.accessToken.isNotEmpty) {
-            final account = await FlutterNaverLogin.currentAccount();
+            final account = await FlutterNaverLogin.getCurrentAccount();
+            if (account.id == null ||
+                account.name == null ||
+                account.profileImage == null) {
+              return;
+            }
+
             _setUser(
-              id: account.id,
-              name: account.name,
-              profileImage: account.profileImage,
+              id: account.id!,
+              name: account.name!,
+              profileImage: account.profileImage!,
             );
             currentLoginMethod = savedLoginMethod;
           } else {
@@ -78,18 +85,21 @@ class AuthProvider extends ChangeNotifier {
 
   Future<void> loginWithNaver() async {
     final result = await FlutterNaverLogin.logIn();
-    if (result.status == NaverLoginStatus.loggedIn) {
-      final token = await FlutterNaverLogin.currentAccessToken;
-      await StorageHelper.saveToken(SocialLoginMethod.naver, token.accessToken);
-      await StorageHelper.saveLoginMethod(SocialLoginMethod.naver);
-      final account = result.account;
-      _setUser(
-        id: account.id,
-        name: account.name,
-        profileImage: account.profileImage,
-      );
-      currentLoginMethod = SocialLoginMethod.naver;
+    if (result.status != NaverLoginStatus.loggedIn || result.account == null) {
+      return;
     }
+
+    final token = await FlutterNaverLogin.getCurrentAccessToken();
+    await StorageHelper.saveToken(SocialLoginMethod.naver, token.accessToken);
+    await StorageHelper.saveLoginMethod(SocialLoginMethod.naver);
+
+    final account = result.account!;
+    _setUser(
+      id: account.id!,
+      name: account.name!,
+      profileImage: account.profileImage!,
+    );
+    currentLoginMethod = SocialLoginMethod.naver;
   }
 
   Future<void> logout() async {

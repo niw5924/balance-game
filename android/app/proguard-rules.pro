@@ -1,10 +1,10 @@
--keep class org.conscrypt.** { *; }
+# Prevent R8 from stripping Conscrypt classes used by OkHttp
 -dontwarn org.conscrypt.**
+-keep class org.conscrypt.** { *; }
 
--keep class org.openjsse.** { *; }
+# Prevent R8 from stripping OpenJSSE classes used by OkHttp
 -dontwarn org.openjsse.**
-
-# https://github.com/naver/naveridlogin-sdk-android/blob/master/Samples/proguard-rules.pro
+-keep class org.openjsse.** { *; }
 
 # Add project specific ProGuard rules here.
 # You can control the set of applied configuration files using the
