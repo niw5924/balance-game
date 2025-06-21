@@ -105,7 +105,7 @@ class AuthProvider extends ChangeNotifier {
   Future<void> logout() async {
     switch (currentLoginMethod) {
       case SocialLoginMethod.naver:
-        await FlutterNaverLogin.logOutAndDeleteToken();
+        await FlutterNaverLogin.logOut();
         await StorageHelper.clearToken(SocialLoginMethod.naver);
         break;
       case SocialLoginMethod.google:
