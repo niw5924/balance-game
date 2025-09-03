@@ -131,7 +131,7 @@ class _SettingsPageState extends State<SettingsPage> {
                           auth.isLoggedIn
                               ? const Icon(Icons.logout, color: Colors.white)
                               : Image.asset(
-                                  'assets/images/naver_icon.png',
+                                  'assets/images/logos/logo_naver.png',
                                   width: 36,
                                   height: 36,
                                 ),
@@ -298,7 +298,7 @@ class _SettingsPageState extends State<SettingsPage> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 const Text(
-                  'Ver 1.2.4',
+                  'Ver 1.2.6',
                   style: TextStyle(color: Colors.grey),
                 ),
                 if (auth.isLoggedIn) ...[
